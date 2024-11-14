@@ -2,7 +2,7 @@ ArrayList<Flashcard> cardList;
 
 void setup() {
   cardList = new ArrayList<Flashcard>();
-
+  println("eric commit");
   size(600, 600);
 
   Flashcard f1 = new Flashcard(50, 50, "gay", "this");
@@ -28,5 +28,3 @@ void keyPressed() {
   }
 
 }
-
-
