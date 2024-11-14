@@ -8,9 +8,10 @@ class Flashcard {
         this.answer = a;
         this.x = coorX;
         this.y = coorY;
+        cardList.add(this);
     }
 
     void display(){
-        square(x, y, 100);
+        square(x, y, 500);
     }
 }
