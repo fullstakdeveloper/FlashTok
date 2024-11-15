@@ -6,7 +6,7 @@ PFont f;
 void setup() {
   f = = createFont("Arial", 16, true);
   cardList = new ArrayList<Flashcard>();
-
+  println("eric commit");
   size(600, 600);
 
   String ans1 = "Eric";
