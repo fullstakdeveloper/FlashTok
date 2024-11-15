@@ -8,13 +8,22 @@ class Flashcard {
         this.answer = a;
         this.x = coorX;
         this.y = coorY;
-        cardList.add(this);
+        cardList.add(this); 
     }
 
     void display(){
+        fill(255);
         textFont(f, 16);
-        square(x, y, 500);
-        text(this.question, 100, 100);
+        square(this.x, this.y, 500);
 
+        fill(0);
+        text(this.question, this.x + 100, this.y + 100);
+        text(this.answer, this.x + 100, this.y + 150);
+
+        //Answer button
+        rect(this.x + 200, this.y + 200, 120, 50);
+
+        fill(255);
+        text("Display Answer", this.x + 200, this.y + 230);
     }
 }

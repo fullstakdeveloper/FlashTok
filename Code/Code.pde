@@ -1,12 +1,17 @@
 import g4p_controls.*;
 
 ArrayList<Flashcard> cardList;
+
+Flashcard selectedCard;
+Flashcard futureCard;
+
 PFont f;
 
+
 void setup() {
-  f = = createFont("Arial", 16, true);
+  f = createFont("Arial", 16, true);
   cardList = new ArrayList<Flashcard>();
-  println("eric commit");
+
   size(600, 600);
 
   String ans1 = "Eric";
@@ -16,7 +21,7 @@ void setup() {
   String q2 = "What is your height?";
 
   Flashcard f1 = new Flashcard(50, 50, q1, ans1);
-  Flashcard f2 = new Flashcard(50, 700, q2, ans2);
+  Flashcard f2 = new Flashcard(50, 700, q2, ans2);  
 }
 
 void draw() {
