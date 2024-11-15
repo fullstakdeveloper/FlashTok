@@ -1,3 +1,5 @@
+import g4p_controls.*;
+
 ArrayList<Flashcard> cardList;
 
 void setup() {
