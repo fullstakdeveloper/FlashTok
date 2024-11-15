@@ -9,6 +9,7 @@ PFont f;
 
 
 void setup() {
+  createGUI();
   f = createFont("Arial", 16, true);
   cardList = new ArrayList<Flashcard>();
 
