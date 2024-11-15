@@ -3,6 +3,7 @@ import g4p_controls.*;
 ArrayList<Flashcard> cardList;
 
 void setup() {
+  createGUI();
   cardList = new ArrayList<Flashcard>();
 
   size(600, 600);
