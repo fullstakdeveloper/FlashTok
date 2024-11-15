@@ -12,6 +12,9 @@ class Flashcard {
     }
 
     void display(){
+        textFont(f, 16);
         square(x, y, 500);
+        text(this.question, 100, 100);
+
     }
 }
