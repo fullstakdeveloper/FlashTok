@@ -13,7 +13,6 @@ int cardIndex = 1;
 
 PFont f;
 
-
 void setup() {
   createGUI();
   f = createFont("Arial", 16, true);
@@ -21,44 +20,46 @@ void setup() {
 
   size(600, 600);
 
-  String ans1 = "Eric";
-  String ans2 = "6";
-
-  String q1 = "What is your name?";
-  String q2 = "What is your height?";
-
-  Flashcard f1 = new Flashcard(50, 50, q1, ans1);
-  Flashcard f2 = new Flashcard(50, 650, q2, ans2);  
-
-  selectedCard = f1;
-  futureCard = cardList.get(int(random(cardList.size())-1));
+  for (int i = 0; i < 50; i++) {
+    cardList.add(new Flashcard(50, 50 + 600 * i, "", ""));
+  }
 }
 
 void draw() {
+  if (scrollBoolean) {
+    if (frames <= 30 && frames != 0) {
+      for (Flashcard card : cardList) {
+        card.y -= scroll_speed;
+      }
+    }
 
-  if (frames <= 30 & frames != 0) {
-    for (int i = 0; i < cardList.size(); i++) {cardList.get(i).y -= scroll_speed;}
+    if (frames > 30) {
+      frames = 0;
+      scrollBoolean = false;
+      scroll_speed = 20;
+    }
   }
-
-  if (frames > 30) {frames = 0; scrollBoolean = false; scroll_speed = 20;}
 
   background(0);
-  for (int i = 0; i < cardList.size(); i++) {
-  cardList.get(i).display();
+  for (Flashcard card : cardList) {
+    card.display();
   }
 
-  if (scrollBoolean == true) {frames += 1;}
+  if (scrollBoolean) {
+    frames++;
+  }
 }
 
 void keyPressed() {
-  if (key == CODED){
-    if (keyCode == DOWN & scrollBoolean == false){
-      for (int i = 0; i < cardList.size(); i++) {scrollBoolean = true;}
+  if (key == CODED) {
+    if (keyCode == DOWN && !scrollBoolean) {
+      scrollBoolean = true;
     }
 
-    if (keyCode == UP & scrollBoolean == false) {
-      for (int i = 0; i < cardList.size(); i++) {scrollBoolean = true; scroll_speed = -20;cardIndex +=1;}
+    if (keyCode == UP && !scrollBoolean) {
+      scrollBoolean = true;
+      scroll_speed = -20;
+      cardIndex++;
     }
   }
-
 }
