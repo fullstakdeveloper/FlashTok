@@ -9,6 +9,8 @@ int scroll_speed = 20;
 int frames = 0;
 Boolean scrollBoolean = false;
 
+int cardIndex = 1;
+
 PFont f;
 
 
@@ -27,6 +29,9 @@ void setup() {
 
   Flashcard f1 = new Flashcard(50, 50, q1, ans1);
   Flashcard f2 = new Flashcard(50, 650, q2, ans2);  
+
+  selectedCard = f1;
+  futureCard = cardList.get(int(random(cardList.size())-1));
 }
 
 void draw() {
@@ -35,7 +40,7 @@ void draw() {
     for (int i = 0; i < cardList.size(); i++) {cardList.get(i).y -= scroll_speed;}
   }
 
-  if (frames > 30) {frames = 0; scrollBoolean = false;scroll_speed = 20;}
+  if (frames > 30) {frames = 0; scrollBoolean = false; scroll_speed = 20;}
 
   background(0);
   for (int i = 0; i < cardList.size(); i++) {
@@ -52,7 +57,7 @@ void keyPressed() {
     }
 
     if (keyCode == UP & scrollBoolean == false) {
-      for (int i = 0; i < cardList.size(); i++) {scrollBoolean = true; scroll_speed = -20;}
+      for (int i = 0; i < cardList.size(); i++) {scrollBoolean = true; scroll_speed = -20;cardIndex +=1;}
     }
   }
 
