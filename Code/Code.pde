@@ -30,12 +30,9 @@ void setup() {
   // Flashcard f2 = new Flashcard(50, 650, q2, ans2);
   // Flashcard f3 = new Flashcard(50, 1250, q3, ans3); 
 
-  for (int n = 0; n < 10; n++) {
+  for (int n = 0; n < 4; n++) {
     cardList.add(new Flashcard(50, 50 + 600*n, "1", "1"));
   }
-
-  println(cardList.size());
-
 
 }
 
@@ -58,14 +55,18 @@ void draw() {
 void keyPressed() {
   if (key == CODED){
     if (keyCode == DOWN & scrollBoolean == false){
+      cardIndex += 1;
+
+      if (float(cardIndex) > (cardList.size()-1)) {
+        cardList.add(new Flashcard(50, 650, "1", "1"));
+        println("wow", cardIndex, cardList.size());
+      }
+      
+      
+      
+
       scrollBoolean = true;
 
-      if (float(cardIndex + 1) > (cardList.size()-1)) {
-        cardList.add(cardList.get(int(random(cardList.size()-1))));
-        println("wow", cardIndex);
-        }
-      
-      cardIndex += 1;
 
 
       

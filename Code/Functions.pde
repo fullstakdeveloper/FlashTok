@@ -8,7 +8,6 @@ class Flashcard {
         this.answer = a;
         this.x = coorX;
         this.y = coorY;
-        cardList.add(this); 
     }
 
     void display(){
