@@ -19,7 +19,7 @@ public void showAnswerClick(GButton source, GEvent event) { //_CODE_:showAnswer:
 } //_CODE_:showAnswer:736547:
 
 public void nextClick(GButton source, GEvent event) { //_CODE_:next:681460:
-  if (scrollBoolean == false){
+  if (scrollBoolean == false & cardList.size() > 1){
       cardIndex += 1;
 
     if (float(cardIndex) > (cardList.size()-1)) {
@@ -31,7 +31,7 @@ public void nextClick(GButton source, GEvent event) { //_CODE_:next:681460:
 } //_CODE_:next:681460:
 
 public void previousClick(GButton source, GEvent event) { //_CODE_:previous:422535:
-  if (scrollBoolean == false) {
+  if (scrollBoolean == false & cardIndex != 0) {
     scrollBoolean = true; scroll_speed = -20;cardIndex -=1;
   }
 } //_CODE_:previous:422535:
@@ -50,9 +50,12 @@ public void answerFieldChange(GTextArea source, GEvent event) { //_CODE_:answerF
 
 public void submitClick(GButton source, GEvent event) { //_CODE_:submit:405464:
   //println("submit - GButton >> GEvent." + event + " @ " + millis());
-  println(answerField.getText(), questionField.getText());
+  if (cardList.size() < 1) {cardList.add(new Flashcard(50, 50, questionField.getText(), answerField.getText()) );}
+  else {cardList.add(new Flashcard(50, 650, questionField.getText(), answerField.getText()) );}
+  println(questionField.getText(), answerField.getText());
   answerField.setText("");
   questionField.setText("");
+  
 } //_CODE_:submit:405464:
 
 

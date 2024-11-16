@@ -30,9 +30,9 @@ void setup() {
   // Flashcard f2 = new Flashcard(50, 650, q2, ans2);
   // Flashcard f3 = new Flashcard(50, 1250, q3, ans3); 
 
-  for (int n = 0; n < 4; n++) {
-    cardList.add(new Flashcard(50, 50 + 600*n, "1", str(n)));
-  }
+  // for (int n = 0; n < 4; n++) {
+  //   cardList.add(new Flashcard(50, 650, "1", str(n)));
+  // }
 
 }
 
@@ -54,7 +54,7 @@ void draw() {
 
 void keyPressed() {
   if (key == CODED){
-    if (keyCode == DOWN & scrollBoolean == false){
+    if (keyCode == DOWN & scrollBoolean == false & cardList.size() > 1){
       cardIndex += 1;
 
       if (float(cardIndex) > (cardList.size()-1)) {
@@ -72,7 +72,7 @@ void keyPressed() {
       
     }
 
-    if (keyCode == UP & scrollBoolean == false) {
+    if (keyCode == UP & scrollBoolean == false & cardIndex != 0) {
       scrollBoolean = true; scroll_speed = -20;cardIndex -=1;
     }
   }
