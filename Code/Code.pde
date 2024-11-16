@@ -31,7 +31,7 @@ void setup() {
   // Flashcard f3 = new Flashcard(50, 1250, q3, ans3); 
 
   for (int n = 0; n < 4; n++) {
-    cardList.add(new Flashcard(50, 50 + 600*n, "1", "1"));
+    cardList.add(new Flashcard(50, 50 + 600*n, "1", str(n)));
   }
 
 }
@@ -58,8 +58,8 @@ void keyPressed() {
       cardIndex += 1;
 
       if (float(cardIndex) > (cardList.size()-1)) {
-        cardList.add(new Flashcard(50, 650, "1", "1"));
-        println("wow", cardIndex, cardList.size());
+        Flashcard value = cardList.get(int(random(cardList.size()-1)));
+        cardList.add(new Flashcard(50, 650, value.question, value.answer));
       }
       
       
