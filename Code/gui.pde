@@ -19,11 +19,21 @@ public void showAnswerClick(GButton source, GEvent event) { //_CODE_:showAnswer:
 } //_CODE_:showAnswer:736547:
 
 public void nextClick(GButton source, GEvent event) { //_CODE_:next:681460:
-  for (int i = 0; i < cardList.size(); i++) {scrollBoolean = true;}
+  if (scrollBoolean == false){
+      cardIndex += 1;
+
+    if (float(cardIndex) > (cardList.size()-1)) {
+      Flashcard value = cardList.get(int(random(cardList.size()-1)));
+      cardList.add(new Flashcard(50, 650, value.question, value.answer));
+    }
+    scrollBoolean = true;
+  }
 } //_CODE_:next:681460:
 
 public void previousClick(GButton source, GEvent event) { //_CODE_:previous:422535:
-  for (int i = 0; i < cardList.size(); i++) {scrollBoolean = true; scroll_speed = -20;cardIndex +=1;}
+  if (scrollBoolean == false) {
+    scrollBoolean = true; scroll_speed = -20;cardIndex -=1;
+  }
 } //_CODE_:previous:422535:
 
 synchronized public void win_draw1(PApplet appc, GWinData data) { //_CODE_:window1:965333:
