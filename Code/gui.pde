@@ -16,7 +16,11 @@
 
 public void showAnswerClick(GButton source, GEvent event) { //_CODE_:showAnswer:736547:
   //println("showAnswer - GButton >> GEvent." + event + " @ " + millis());
+  if (cardList.get(cardIndex).showAns == true) {cardList.get(cardIndex).showAns = false;}
+  else {cardList.get(cardIndex).showAns = true;}
+  
 } //_CODE_:showAnswer:736547:
+
 
 public void nextClick(GButton source, GEvent event) { //_CODE_:next:681460:
   if (scrollBoolean == false & cardList.size() > 1){
