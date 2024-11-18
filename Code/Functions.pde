@@ -19,6 +19,7 @@ class Flashcard {
         fill(0);
         text(this.question, this.x + 100, this.y + 100);
 
+        //show answer functionality
         if (showAns == true) {text(this.answer, this.x + 100, this.y + 150);}
             
 

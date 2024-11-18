@@ -16,6 +16,8 @@
 
 public void showAnswerClick(GButton source, GEvent event) { //_CODE_:showAnswer:736547:
   //println("showAnswer - GButton >> GEvent." + event + " @ " + millis());
+  
+  //locates the chard using the card index and then show the answer.
   if (cardList.get(cardIndex).showAns == true) {cardList.get(cardIndex).showAns = false;}
   else {cardList.get(cardIndex).showAns = true;}
   
