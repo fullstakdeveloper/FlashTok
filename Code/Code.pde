@@ -2,6 +2,10 @@ import g4p_controls.*;
 
 ArrayList<Flashcard> cardList;
 
+// character limit for question field and answer field
+int questionCharLimit = 10;
+int answerCharLimit = 10;
+
 // scrollmovement variable
 int scroll_speed = 20;
 int frames = 0;

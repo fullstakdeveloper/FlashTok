@@ -23,7 +23,6 @@ public void showAnswerClick(GButton source, GEvent event) { //_CODE_:showAnswer:
   
 } //_CODE_:showAnswer:736547:
 
-
 public void nextClick(GButton source, GEvent event) { //_CODE_:next:681460:
   if (scrollBoolean == false & cardList.size() > 1){
       cardIndex += 1;
@@ -47,7 +46,7 @@ synchronized public void win_draw1(PApplet appc, GWinData data) { //_CODE_:windo
 } //_CODE_:window1:965333:
 
 public void questionFieldChange(GTextArea source, GEvent event) { //_CODE_:questionField:268747:
-  //println("questionField - GTextArea >> GEvent." + event + " @ " + millis());
+
 } //_CODE_:questionField:268747:
 
 public void answerFieldChange(GTextArea source, GEvent event) { //_CODE_:answerField:296875:
@@ -56,13 +55,29 @@ public void answerFieldChange(GTextArea source, GEvent event) { //_CODE_:answerF
 
 public void submitClick(GButton source, GEvent event) { //_CODE_:submit:405464:
   //println("submit - GButton >> GEvent." + event + " @ " + millis());
+   if (questionField.getText().length() > questionCharLimit) {
+     charLimitIndicator.setText("Question Character Limit of " + questionCharLimit + " passed");
+     return;
+   }
+   else if (answerField.getText().length() > answerCharLimit) {
+     charLimitIndicator.setText("Answer Character Limit of " + answerCharLimit + " passed");
+     return;
+   }
+
+
   if (cardList.size() < 1) {cardList.add(new Flashcard(50, 50, questionField.getText(), answerField.getText()) );}
   else {cardList.add(new Flashcard(50, 650, questionField.getText(), answerField.getText()) );}
-  println(questionField.getText(), answerField.getText());
+  
   answerField.setText("");
   questionField.setText("");
   
+  
+  
 } //_CODE_:submit:405464:
+
+public void charLimitChange(GTextField source, GEvent event) { //_CODE_:charLimitIndicator:410328:
+  //println("textfield1 - GTextField >> GEvent." + event + " @ " + millis());
+} //_CODE_:charLimitIndicator:410328:
 
 
 
@@ -103,6 +118,10 @@ public void createGUI(){
   submit = new GButton(window1, 110, 240, 80, 30);
   submit.setText("Submit");
   submit.addEventHandler(this, "submitClick");
+  charLimitIndicator = new GTextField(window1, 310, 30, 270, 30, G4P.SCROLLBARS_NONE);
+  charLimitIndicator.setLocalColorScheme(GCScheme.CYAN_SCHEME);
+  charLimitIndicator.setOpaque(true);
+  charLimitIndicator.addEventHandler(this, "charLimitChange");
   window1.loop();
 }
 
@@ -117,3 +136,4 @@ GTextArea answerField;
 GLabel label1; 
 GLabel label2; 
 GButton submit; 
+GTextField charLimitIndicator; 
