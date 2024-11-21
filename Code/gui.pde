@@ -42,6 +42,14 @@ public void previousClick(GButton source, GEvent event) { //_CODE_:previous:4225
   }
 } //_CODE_:previous:422535:
 
+public void easyButtonClick(GButton source, GEvent event) { //_CODE_:easyButton:287005:
+  println("easyButton - GButton >> GEvent." + event + " @ " + millis());
+} //_CODE_:easyButton:287005:
+
+public void hardButtonClick(GButton source, GEvent event) { //_CODE_:hardButton:837404:
+  println("hardButton - GButton >> GEvent." + event + " @ " + millis());
+} //_CODE_:hardButton:837404:
+
 synchronized public void win_draw1(PApplet appc, GWinData data) { //_CODE_:window1:965333:
   appc.background(230);
 } //_CODE_:window1:965333:
@@ -97,6 +105,10 @@ public void charLimitChange(GTextField source, GEvent event) { //_CODE_:charLimi
   //println("textfield1 - GTextField >> GEvent." + event + " @ " + millis());
 } //_CODE_:charLimitIndicator:410328:
 
+public void timerSliderChange(GCustomSlider source, GEvent event) { //_CODE_:timerSlider:376555:
+  println("timerSlider - GCustomSlider >> GEvent." + event + " @ " + millis());
+} //_CODE_:timerSlider:376555:
+
 
 
 // Create all the GUI controls. 
@@ -106,7 +118,7 @@ public void createGUI(){
   G4P.setGlobalColorScheme(GCScheme.BLUE_SCHEME);
   G4P.setMouseOverEnabled(false);
   surface.setTitle("Sketch Window");
-  showAnswer = new GButton(this, 370, 560, 90, 30);
+  showAnswer = new GButton(this, 360, 560, 100, 30);
   showAnswer.setText("Show Answer");
   showAnswer.addEventHandler(this, "showAnswerClick");
   next = new GButton(this, 470, 560, 120, 30);
@@ -115,6 +127,14 @@ public void createGUI(){
   previous = new GButton(this, 470, 10, 120, 30);
   previous.setText("Previous Flashcard");
   previous.addEventHandler(this, "previousClick");
+  easyButton = new GButton(this, 10, 560, 100, 30);
+  easyButton.setText("Easy");
+  easyButton.setLocalColorScheme(GCScheme.GREEN_SCHEME);
+  easyButton.addEventHandler(this, "easyButtonClick");
+  hardButton = new GButton(this, 120, 560, 110, 30);
+  hardButton.setText("Hard");
+  hardButton.setLocalColorScheme(GCScheme.RED_SCHEME);
+  hardButton.addEventHandler(this, "hardButtonClick");
   window1 = GWindow.getWindow(this, "Window title", 0, 0, 600, 400, JAVA2D);
   window1.noLoop();
   window1.setActionOnClose(G4P.KEEP_OPEN);
@@ -140,6 +160,13 @@ public void createGUI(){
   charLimitIndicator.setLocalColorScheme(GCScheme.CYAN_SCHEME);
   charLimitIndicator.setOpaque(true);
   charLimitIndicator.addEventHandler(this, "charLimitChange");
+  timerSlider = new GCustomSlider(window1, 310, 80, 270, 40, "grey_blue");
+  timerSlider.setLimits(10, 0, 60);
+  timerSlider.setNbrTicks(6);
+  timerSlider.setStickToTicks(true);
+  timerSlider.setNumberFormat(G4P.INTEGER, 0);
+  timerSlider.setOpaque(false);
+  timerSlider.addEventHandler(this, "timerSliderChange");
   window1.loop();
 }
 
@@ -148,6 +175,8 @@ public void createGUI(){
 GButton showAnswer; 
 GButton next; 
 GButton previous; 
+GButton easyButton; 
+GButton hardButton; 
 GWindow window1;
 GTextArea questionField; 
 GTextArea answerField; 
@@ -155,3 +184,4 @@ GLabel label1;
 GLabel label2; 
 GButton submit; 
 GTextField charLimitIndicator; 
+GCustomSlider timerSlider; 
