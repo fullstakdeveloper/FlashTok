@@ -4,8 +4,8 @@ ArrayList<Flashcard> cardHistory;
 ArrayList<Flashcard> cardProbabilityList;
 
 // character limit for question field and answer field
-int questionCharLimit = 10;
-int answerCharLimit = 10;
+int questionCharLimit = 300;
+int answerCharLimit = 300;
 
 // scrollmovement variable
 int scroll_speed = 20;
@@ -63,7 +63,7 @@ void keyPressed() {
         Flashcard value = cardHistory.get(int(random(cardHistory.size()-1)));
 
         //renders it off screen until it get to it
-        cardHistory.add(new Flashcard(50, 630, value.question, value.answer));
+        cardHistory.add(new Flashcard(50, 650, value.question, value.answer));
       }
 
       //for the moment of the flashcard down
