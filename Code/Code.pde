@@ -1,63 +1,79 @@
 import g4p_controls.*;
 
-ArrayList<Flashcard> cardList;
+ArrayList<Flashcard> cardHistory;
+ArrayList<Flashcard> cardProbabilityList;
 
-Flashcard selectedCard;
-Flashcard futureCard;
+// character limit for question field and answer field
+int questionCharLimit = 10;
+int answerCharLimit = 10;
 
+// scrollmovement variable
 int scroll_speed = 20;
 int frames = 0;
 Boolean scrollBoolean = false;
 
-int cardIndex = 1;
+//to keep track of card and create new cards
+int cardIndex = 0;
 
+//font defintion
 PFont f;
-
 
 void setup() {
   createGUI();
   f = createFont("Arial", 16, true);
-  cardList = new ArrayList<Flashcard>();
-
+  cardHistory = new ArrayList<Flashcard>();
+  cardProbabilityList = new ArrayList<Flashcard>();
+  
   size(600, 600);
 
-  String ans1 = "Eric";
-  String ans2 = "6";
-
-  String q1 = "What is your name?";
-  String q2 = "What is your height?";
-
-  Flashcard f1 = new Flashcard(50, 50, q1, ans1);
-  Flashcard f2 = new Flashcard(50, 650, q2, ans2);  
-
-  selectedCard = f1;
-  futureCard = cardList.get(int(random(cardList.size())-1));
 }
 
 void draw() {
-
+  //moves the all the flashcard for those 30 frames
   if (frames <= 30 & frames != 0) {
-    for (int i = 0; i < cardList.size(); i++) {cardList.get(i).y -= scroll_speed;}
+    for (int i = 0; i < cardHistory.size(); i++) {cardHistory.get(i).y -= scroll_speed;}
   }
 
+  //resetting the frames after the 30 interations
   if (frames > 30) {frames = 0; scrollBoolean = false; scroll_speed = 20;}
 
   background(0);
-  for (int i = 0; i < cardList.size(); i++) {
-  cardList.get(i).display();
+  
+  //drawings the card
+  for (int i = 0; i < cardHistory.size(); i++) {
+    cardHistory.get(i).display();
   }
 
+  //starts frame count when the object is scrolling
   if (scrollBoolean == true) {frames += 1;}
+
+  //note that the draw runs at 30 times per second
 }
+
 
 void keyPressed() {
   if (key == CODED){
-    if (keyCode == DOWN & scrollBoolean == false){
-      for (int i = 0; i < cardList.size(); i++) {scrollBoolean = true;}
+    
+    //updating card index
+    if (keyCode == DOWN & scrollBoolean == false & cardHistory.size() > 1){
+      cardIndex += 1;
+
+      //created a new card using the card index
+      if (float(cardIndex) > (cardHistory.size()-1)) {
+        Flashcard value = cardHistory.get(int(random(cardHistory.size()-1)));
+
+        //renders it off screen until it get to it
+        cardHistory.add(new Flashcard(50, 630, value.question, value.answer));
+      }
+
+      //for the moment of the flashcard down
+      scrollBoolean = true;
     }
 
-    if (keyCode == UP & scrollBoolean == false) {
-      for (int i = 0; i < cardList.size(); i++) {scrollBoolean = true; scroll_speed = -20;cardIndex +=1;}
+    //To move the flashcard down
+    if (keyCode == UP & scrollBoolean == false & cardIndex != 0) {
+      //updating card index
+      scrollBoolean = true; scroll_speed = -20;cardIndex -=1;
     }
   }
 
