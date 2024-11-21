@@ -28,7 +28,8 @@ public void nextClick(GButton source, GEvent event) { //_CODE_:next:681460:
       cardIndex += 1;
 
     if (float(cardIndex) > (cardHistory.size()-1)) {
-      Flashcard value = cardProbabilityList.get(int(random(cardProbabilityList.size()-1)));
+      Flashcard value = cardProbabilityList.get(int(random(0, cardProbabilityList.size())));
+      
       cardHistory.add(new Flashcard(50, 650, value.question, value.answer));
     }
     scrollBoolean = true;
