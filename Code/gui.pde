@@ -18,18 +18,18 @@ public void showAnswerClick(GButton source, GEvent event) { //_CODE_:showAnswer:
   //println("showAnswer - GButton >> GEvent." + event + " @ " + millis());
   
   //locates the chard using the card index and then show the answer.
-  if (cardList.get(cardIndex).showAns == true) {cardList.get(cardIndex).showAns = false;}
-  else {cardList.get(cardIndex).showAns = true;}
+  if (cardHistory.get(cardIndex).showAns == true) {cardHistory.get(cardIndex).showAns = false;}
+  else {cardHistory.get(cardIndex).showAns = true;}
   
 } //_CODE_:showAnswer:736547:
 
 public void nextClick(GButton source, GEvent event) { //_CODE_:next:681460:
-  if (scrollBoolean == false & cardList.size() > 1){
+  if (scrollBoolean == false & cardHistory.size() > 1){
       cardIndex += 1;
 
-    if (float(cardIndex) > (cardList.size()-1)) {
-      Flashcard value = cardList.get(int(random(cardList.size()-1)));
-      cardList.add(new Flashcard(50, 650, value.question, value.answer));
+    if (float(cardIndex) > (cardHistory.size()-1)) {
+      Flashcard value = cardProbabilityList.get(int(random(cardProbabilityList.size()-1)));
+      cardHistory.add(new Flashcard(50, 650, value.question, value.answer));
     }
     scrollBoolean = true;
   }
@@ -65,8 +65,24 @@ public void submitClick(GButton source, GEvent event) { //_CODE_:submit:405464:
    }
 
 
-  if (cardList.size() < 1) {cardList.add(new Flashcard(50, 50, questionField.getText(), answerField.getText()) );}
-  else {cardList.add(new Flashcard(50, 650, questionField.getText(), answerField.getText()) );}
+  if (cardHistory.size() < 1) {
+    Flashcard newFlashcard = new Flashcard(50, 50, questionField.getText(), answerField.getText());
+    cardHistory.add(newFlashcard);
+    cardProbabilityList.add(newFlashcard);
+  
+  }
+
+  else {
+    Flashcard newFlashcard = new Flashcard(50, 650, questionField.getText(), answerField.getText());
+
+    cardHistory.add(newFlashcard);
+
+    if (cardProbabilityList.contains(newFlashcard) != true) {cardProbabilityList.add(newFlashcard);}
+    println(cardProbabilityList.contains(newFlashcard));
+    println(cardProbabilityList);
+    
+    }
+
   
   answerField.setText("");
   questionField.setText("");
