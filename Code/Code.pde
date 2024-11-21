@@ -4,8 +4,8 @@ ArrayList<Flashcard> cardHistory;
 ArrayList<Flashcard> cardProbabilityList;
 
 // character limit for question field and answer field
-int questionCharLimit = 100;
-int answerCharLimit = 50;
+int questionCharLimit = 300;
+int answerCharLimit = 300;
 
 // scrollmovement variable
 int scroll_speed = 20;
