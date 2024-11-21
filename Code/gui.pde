@@ -77,6 +77,7 @@ public void submitClick(GButton source, GEvent event) { //_CODE_:submit:405464:
 
     cardHistory.add(newFlashcard);
 
+    //dont touch this code please
     if (cardProbabilityList.contains(newFlashcard) != true) {cardProbabilityList.add(newFlashcard);}
     println(cardProbabilityList.contains(newFlashcard));
     println(cardProbabilityList);
