@@ -17,10 +17,10 @@ class Flashcard {
         rect(this.x, this.y, this.x + 450, this.y + 450, 30);
 
         fill(0);
-        text(this.question, this.x + 100, this.y + 100);
+        text(this.question, this.x + 100, this.y + 100, 300, 200);
 
         //show answer functionality
-        if (showAns == true) {text(this.answer, this.x + 100, this.y + 150);}
+        if (showAns == true) {text(this.answer, this.x + 100, this.y + 150, 300, 200);}
             
 
     }
