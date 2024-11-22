@@ -1,118 +1,129 @@
+// Import the G4P GUI library
 import g4p_controls.*;
 
+// Lists to manage flashcard history and probability
 ArrayList<Flashcard> cardHistory;
 ArrayList<Flashcard> cardProbabilityList;
 
-int timerVar;//timing variables
+// Timer variables for controlling countdown functionality
+int timerVar;
 float timeLeft;
 int currentTime;
 int secondTime;
+
+// Toggles to start/stop and enable/disable the timer
 boolean timeBool = false;
 boolean timeToggle = true;
 
-// character limit for question field and answer field
+// Maximum character limits for text in flashcard input boxes
 int questionCharLimit = 300;
 int answerCharLimit = 300;
 
-// scrollmovement variable
+// Variables for scroll speed and animation frames
 int scroll_speed = 20;
 int frames = 0;
-Boolean scrollBoolean = false;
+boolean scrollBoolean = false; // Tracks if scrolling is active
 
-//to keep track of card and create new cards
+// Index to track the current flashcard
 int cardIndex = 0;
 
-//font defintion
+// Font used to display text
 PFont f;
 
 void setup() {
+  // Set up GUI components
   createGUI();
-  f = createFont("Arial", 16, true);
-  cardHistory = new ArrayList<Flashcard>();
-  cardProbabilityList = new ArrayList<Flashcard>();
-  timerSlider.setValue(36);
   
-  size(600, 600);
+  // Load Arial font for text rendering
+  f = createFont("Arial", 16, true);
 
+  // Initialize flashcard lists
+  cardHistory = new ArrayList<>();
+  cardProbabilityList = new ArrayList<>();
+
+  // Set initial slider value for the timer
+  timerSlider.setValue(36);
+
+  // Set the application window size
+  size(600, 600);
 }
 
 void draw() {
-  //moves the all the flashcard for those 30 frames
-  if (frames <= 30 & frames != 0) {
-    for (int i = 0; i < cardHistory.size(); i++) {cardHistory.get(i).y -= scroll_speed;}
+  // Handle scrolling of flashcards in the history
+  if (frames <= 30 && frames != 0) {
+    for (Flashcard card : cardHistory) {
+      card.y -= scroll_speed; // Move flashcards up
+    }
   }
 
-  //resetting the frames after the 30 interations
-  if (frames > 30) {frames = 0; scrollBoolean = false; scroll_speed = 20;}
+  // Reset scrolling parameters after 30 frames
+  if (frames > 30) {
+    frames = 0;
+    scrollBoolean = false;
+    scroll_speed = 20;
+  }
 
+  // Set background color to black
   background(0);
-  
-  //drawings the card
-  for (int i = 0; i < cardHistory.size(); i++) {
-    cardHistory.get(i).display();
+
+  // Display all flashcards in the history
+  for (Flashcard card : cardHistory) {
+    card.display();
   }
 
-  //starts frame count when the object is scrolling
-  if (scrollBoolean == true) {frames += 1;}
-
-  //note that the draw runs at 30 times per second
-  
-  if (timeBool && timeToggle){
-    secondTime = millis();
-    
-    timeLeft = timerVar - (secondTime - currentTime)/100;
-    displayTime.setText("Time left: " + str(timeLeft));
-    
-    if (timeLeft == 0){
-      timeBool = false;
-      
-      if (scrollBoolean == false & cardHistory.size() > 0){
-        cardIndex += 1;
-      
-        timeBool = true;
-        
-        currentTime = millis();
-
-      if (float(cardIndex) > (cardHistory.size()-1)) {
-        Flashcard value = cardProbabilityList.get(int(random(0, cardProbabilityList.size())));
-      
-        cardHistory.add(new Flashcard(50, 650, value.question, value.answer));
-      
-    }
-      scrollBoolean = true;
+  // Increment frame count while scrolling is active
+  if (scrollBoolean) {
+    frames++;
   }
-    }
 
+  // Timer logic to update time left and manage flashcard display
+  if (timeBool && timeToggle) {
+    secondTime = millis(); // Get the current system time
+    timeLeft = timerVar - (secondTime - currentTime) / 1000; // Calculate time left
+    displayTime.setText("Time left: " + str(timeLeft)); // Update the timer text
+
+    // Handle timer expiration
+    if (timeLeft == 0) {
+      timeBool = false; // Stop the timer
+
+      // Add a new flashcard if scrolling is inactive and history is not empty
+      if (!scrollBoolean && !cardHistory.isEmpty()) {
+        cardIndex++;
+        timeBool = true; // Restart the timer
+        currentTime = millis(); // Reset the current time
+
+        // Add a random flashcard from the probability list if at the end
+        if (cardIndex > cardHistory.size() - 1) {
+          Flashcard value = cardProbabilityList.get(int(random(cardProbabilityList.size())));
+          cardHistory.add(new Flashcard(50, 650, value.question, value.answer));
+        }
+        scrollBoolean = true; // Enable scrolling
+      }
+    }
   }
 }
 
 void keyPressed() {
-  if (key == CODED){
+  if (key == CODED) {
+    // Move to the next flashcard
+    if (keyCode == DOWN && !scrollBoolean && cardHistory.size() > 1) {
+      cardIndex++; // Increment flashcard index
+      currentTime = millis(); // Reset the current time
 
-    
-    //updating card index
-    if (keyCode == DOWN & scrollBoolean == false & cardHistory.size() > 1){
-      cardIndex += 1;
-      currentTime = millis();
-
-      //created a new card using the card index
-      if (float(cardIndex) > (cardHistory.size()-1)) {
-        Flashcard value = cardHistory.get(int(random(cardHistory.size()-1)));
-
-        //renders it off screen until it get to it
+      // Add a random flashcard if at the end of history
+      if (cardIndex > cardHistory.size() - 1) {
+        Flashcard value = cardHistory.get(int(random(cardHistory.size() - 1)));
         cardHistory.add(new Flashcard(50, 650, value.question, value.answer));
       }
-
-      //for the moment of the flashcard down
-      scrollBoolean = true;
+      scrollBoolean = true; // Enable scrolling
     }
 
-    //To move the flashcard down
-    if (keyCode == UP & scrollBoolean == false & cardIndex != 0) {
-      //updating card index
-      currentTime = millis();
-      scrollBoolean = true; scroll_speed = -20;cardIndex -=1;
+    // Move to the previous flashcard
+    if (keyCode == UP && !scrollBoolean && cardIndex != 0) {
+      currentTime = millis(); // Reset the current time
+      scrollBoolean = true; // Enable scrolling
+      scroll_speed = -20; // Set scroll direction to upward
+      cardIndex--; // Decrement flashcard index
     }
   }
-
 }
