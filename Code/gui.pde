@@ -45,6 +45,8 @@ public void previousClick(GButton source, GEvent event) { //_CODE_:previous:4225
   if (scrollBoolean == false & cardIndex != 0) {
     scrollBoolean = true; scroll_speed = -20;cardIndex -=1;
   }
+
+  currentTime = millis();
 } //_CODE_:previous:422535:
 
 public void easyButtonClick(GButton source, GEvent event) { //_CODE_:easyButton:287005:

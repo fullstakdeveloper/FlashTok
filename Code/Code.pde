@@ -3,7 +3,7 @@ import g4p_controls.*;
 ArrayList<Flashcard> cardHistory;
 ArrayList<Flashcard> cardProbabilityList;
 
-int timerVar; //timing variables
+int timerVar;//timing variables
 float timeLeft;
 int currentTime;
 int secondTime;
