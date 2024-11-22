@@ -3,6 +3,7 @@ class Flashcard {
     String answer;
     int x, y;
     Boolean showAns = false;
+    Boolean hardEasy = false;
 
     Flashcard(int coorX, int coorY, String q, String a){
         this.question  = q;

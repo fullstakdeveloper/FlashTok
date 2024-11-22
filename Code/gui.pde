@@ -7,7 +7,7 @@
  * use lines between the matching comment tags. e.g.
 
  void myBtnEvents(GButton button) { //_CODE_:button1:12356:
-     // It is safe to enter your event code here  
+  // It is safe to enter your event code here  
  } //_CODE_:button1:12356:
  
  * Do not rename this tab!
@@ -20,6 +20,7 @@ public void showAnswerClick(GButton source, GEvent event) { //_CODE_:showAnswer:
   //locates the chard using the card index and then show the answer.
   if (cardHistory.get(cardIndex).showAns == true) {cardHistory.get(cardIndex).showAns = false;}
   else {cardHistory.get(cardIndex).showAns = true;}
+
   
 } //_CODE_:showAnswer:736547:
 
@@ -34,21 +35,42 @@ public void nextClick(GButton source, GEvent event) { //_CODE_:next:681460:
     }
     scrollBoolean = true;
   }
+
+  cardHistory.get(cardIndex-1).showAns = false;
+  cardHistory.get(cardIndex-1).hardEasy = false;
 } //_CODE_:next:681460:
 
 public void previousClick(GButton source, GEvent event) { //_CODE_:previous:422535:
   if (scrollBoolean == false & cardIndex != 0) {
     scrollBoolean = true; scroll_speed = -20;cardIndex -=1;
   }
+
+  cardHistory.get(cardIndex+1).showAns = false;
+  cardHistory.get(cardIndex+1).hardEasy = false;
 } //_CODE_:previous:422535:
 
 public void easyButtonClick(GButton source, GEvent event) { //_CODE_:easyButton:287005:
-  println("easyButton - GButton >> GEvent." + event + " @ " + millis());
-} //_CODE_:easyButton:287005:
+if (cardHistory.get(cardIndex).hardEasy != true){
+  int values = 0;
+  for (int i = 0; i < cardProbabilityList.size(); i++) {
+      if (cardHistory.get(cardIndex) == cardProbabilityList.get(i)) {
+        if (values > 0) {cardProbabilityList.remove(i); break;}
+          values += 1;
+    }
+  }
+}
 
-public void hardButtonClick(GButton source, GEvent event) { //_CODE_:hardButton:837404:
-  println("hardButton - GButton >> GEvent." + event + " @ " + millis());
-} //_CODE_:hardButton:837404:
+cardHistory.get(cardIndex).hardEasy = true;
+} 
+
+public void hardButtonClick(GButton source, GEvent event) { 
+  if (cardHistory.get(cardIndex).hardEasy != true) {
+  cardProbabilityList.add(cardHistory.get(cardIndex));
+  }
+  cardHistory.get(cardIndex).hardEasy = true;
+
+  println(cardProbabilityList);
+} 
 
 synchronized public void win_draw1(PApplet appc, GWinData data) { //_CODE_:window1:965333:
   appc.background(230);
@@ -88,8 +110,6 @@ public void submitClick(GButton source, GEvent event) { //_CODE_:submit:405464:
 
     //dont touch this code please
     if (cardProbabilityList.contains(newFlashcard) != true) {cardProbabilityList.add(newFlashcard);}
-    println(cardProbabilityList.contains(newFlashcard));
-    println(cardProbabilityList);
     
     }
 
