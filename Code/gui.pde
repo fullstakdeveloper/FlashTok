@@ -7,7 +7,7 @@
  * use lines between the matching comment tags. e.g.
 
  void myBtnEvents(GButton button) { //_CODE_:button1:12356:
-  // It is safe to enter your event code here  
+     // It is safe to enter your event code here  
  } //_CODE_:button1:12356:
  
  * Do not rename this tab!
@@ -15,17 +15,12 @@
  */
 
 public void showAnswerClick(GButton source, GEvent event) { //_CODE_:showAnswer:736547:
-  //println("showAnswer - GButton >> GEvent." + event + " @ " + millis());
-  
-  //locates the chard using the card index and then show the answer.
   if (cardHistory.get(cardIndex).showAns == true) {cardHistory.get(cardIndex).showAns = false;}
   else {cardHistory.get(cardIndex).showAns = true;}
-
-  
 } //_CODE_:showAnswer:736547:
 
 public void nextClick(GButton source, GEvent event) { //_CODE_:next:681460:
-  if (scrollBoolean == false & cardHistory.size() > 1){
+  if (scrollBoolean == false & cardHistory.size() > 0){
       cardIndex += 1;
       
       timeBool = true;
@@ -57,95 +52,55 @@ public void previousClick(GButton source, GEvent event) { //_CODE_:previous:4225
 } //_CODE_:previous:422535:
 
 public void easyButtonClick(GButton source, GEvent event) { //_CODE_:easyButton:287005:
-  //println("easyButton - GButton >> GEvent." + event + " @ " + millis());
- //_CODE_:easyButton:287005:
-if (cardHistory.get(cardIndex).hardEasy != true){
-  int values = 0;
-  for (int i = 0; i < cardProbabilityList.size(); i++) {
-      if (cardHistory.get(cardIndex) == cardProbabilityList.get(i)) {
-        if (values > 0) {cardProbabilityList.remove(i); break;}
-          values += 1;
+  if (cardHistory.get(cardIndex).hardEasy != true){
+    int values = 0;
+    for (int i = 0; i < cardProbabilityList.size(); i++) {
+        if (cardHistory.get(cardIndex) == cardProbabilityList.get(i)) {
+          if (values > 0) {cardProbabilityList.remove(i); break;}
+            values += 1;
+      }
     }
-  }
-}
+} //_CODE_:easyButton:287005:
 
-cardHistory.get(cardIndex).hardEasy = true;
-} 
-
-
-public void hardButtonClick(GButton source, GEvent event) { 
+public void hardButtonClick(GButton source, GEvent event) { //_CODE_:hardButton:837404:
   if (cardHistory.get(cardIndex).hardEasy != true) {
-  cardProbabilityList.add(cardHistory.get(cardIndex));
+    cardProbabilityList.add(cardHistory.get(cardIndex));
   }
   cardHistory.get(cardIndex).hardEasy = true;
 
   println(cardProbabilityList);
-} 
+} //_CODE_:hardButton:837404:
 
 synchronized public void win_draw1(PApplet appc, GWinData data) { //_CODE_:window1:965333:
   appc.background(230);
 } //_CODE_:window1:965333:
 
 public void questionFieldChange(GTextArea source, GEvent event) { //_CODE_:questionField:268747:
-
+  println("questionField - GTextArea >> GEvent." + event + " @ " + millis());
 } //_CODE_:questionField:268747:
 
 public void answerFieldChange(GTextArea source, GEvent event) { //_CODE_:answerField:296875:
+  println("answerField - GTextArea >> GEvent." + event + " @ " + millis());
 } //_CODE_:answerField:296875:
 
 public void submitClick(GButton source, GEvent event) { //_CODE_:submit:405464:
-  //println("submit - GButton >> GEvent." + event + " @ " + millis());
-   if (questionField.getText().length() > questionCharLimit) {
-     charLimitIndicator.setText("Question Character Limit of " + questionCharLimit + " passed");
-     return;
-   }
-   else if (answerField.getText().length() > answerCharLimit) {
-     charLimitIndicator.setText("Answer Character Limit of " + answerCharLimit + " passed");
-     return;
-   }
-
-
-  if (cardHistory.size() < 1) {
-    Flashcard newFlashcard = new Flashcard(50, 50, questionField.getText(), answerField.getText());
-    cardHistory.add(newFlashcard);
-    cardProbabilityList.add(newFlashcard);
-    timeBool = true;
-    currentTime = millis();
-  
-  }
-
-  else {
-    Flashcard newFlashcard = new Flashcard(50, 650, questionField.getText(), answerField.getText());
-
-    cardHistory.add(newFlashcard);
-
-    //dont touch this code please
-    if (cardProbabilityList.contains(newFlashcard) != true) {cardProbabilityList.add(newFlashcard);}
-    
-    }
-
-  
-  answerField.setText("");
-  questionField.setText("");
-  
-  
-  
+  println("submit - GButton >> GEvent." + event + " @ " + millis());
 } //_CODE_:submit:405464:
 
 public void charLimitChange(GTextField source, GEvent event) { //_CODE_:charLimitIndicator:410328:
+  println("charLimitIndicator - GTextField >> GEvent." + event + " @ " + millis());
 } //_CODE_:charLimitIndicator:410328:
 
 public void timerSliderChange(GCustomSlider source, GEvent event) { //_CODE_:timerSlider:376555:
-  timerVar = timerSlider.getValueI() + 1;
-  currentTime = millis();
-  timerValue.setText("Timer set to: " + str(timerVar - 1) + " seconds");
+  println("timerSlider - GCustomSlider >> GEvent." + event + " @ " + millis());
 } //_CODE_:timerSlider:376555:
 
 public void timerValueChange(GTextField source, GEvent event) { //_CODE_:timerValue:710029:
+  println("timerValue - GTextField >> GEvent." + event + " @ " + millis());
 } //_CODE_:timerValue:710029:
 
 public void displayTimeChange(GTextField source, GEvent event) { //_CODE_:displayTime:599060:
-
+  println("displayTime - GTextField >> GEvent." + event + " @ " + millis());
 } //_CODE_:displayTime:599060:
 
 
