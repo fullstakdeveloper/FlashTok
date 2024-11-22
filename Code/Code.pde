@@ -66,7 +66,7 @@ void draw() {
     if (timeLeft == 0){
       timeBool = false;
       
-      if (scrollBoolean == false & cardHistory.size() > 1){
+      if (scrollBoolean == false & cardHistory.size() > 0){
         cardIndex += 1;
       
         timeBool = true;
