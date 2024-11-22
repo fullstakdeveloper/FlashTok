@@ -88,10 +88,12 @@ void draw() {
 
 void keyPressed() {
   if (key == CODED){
+
     
     //updating card index
     if (keyCode == DOWN & scrollBoolean == false & cardHistory.size() > 1){
       cardIndex += 1;
+      currentTime = millis();
 
       //created a new card using the card index
       if (float(cardIndex) > (cardHistory.size()-1)) {
@@ -108,6 +110,7 @@ void keyPressed() {
     //To move the flashcard down
     if (keyCode == UP & scrollBoolean == false & cardIndex != 0) {
       //updating card index
+      currentTime = millis();
       scrollBoolean = true; scroll_speed = -20;cardIndex -=1;
     }
   }

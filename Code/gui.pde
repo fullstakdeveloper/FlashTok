@@ -25,7 +25,7 @@ public void showAnswerClick(GButton source, GEvent event) { //_CODE_:showAnswer:
 } //_CODE_:showAnswer:736547:
 
 public void nextClick(GButton source, GEvent event) { //_CODE_:next:681460:
-  if (scrollBoolean == false & cardHistory.size() > 1){
+  if (scrollBoolean == false & cardHistory.size() > 0){
       cardIndex += 1;
       
       timeBool = true;
@@ -117,7 +117,7 @@ public void submitClick(GButton source, GEvent event) { //_CODE_:submit:405464:
   else {
     Flashcard newFlashcard = new Flashcard(50, 650, questionField.getText(), answerField.getText());
 
-    cardHistory.add(newFlashcard);
+    // cardHistory.add(newFlashcard);
 
     //dont touch this code please
     if (cardProbabilityList.contains(newFlashcard) != true) {cardProbabilityList.add(newFlashcard);}
