@@ -58,7 +58,7 @@ void draw() {
   if (timeBool){
     secondTime = millis();
     
-    timeLeft = timerVar - (secondTime - currentTime)/60;
+    timeLeft = timerVar - (secondTime - currentTime)/100;
     displayTime.setText("Time left: " + str(timeLeft));
     
     if (timeLeft == 0){
