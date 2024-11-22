@@ -82,6 +82,8 @@ public void submitClick(GButton source, GEvent event) { //_CODE_:submit:405464:
     Flashcard newFlashcard = new Flashcard(50, 50, questionField.getText(), answerField.getText());
     cardHistory.add(newFlashcard);
     cardProbabilityList.add(newFlashcard);
+    timeBool = true;
+    currentTime = millis();
   
   }
 
@@ -109,9 +111,9 @@ public void charLimitChange(GTextField source, GEvent event) { //_CODE_:charLimi
 } //_CODE_:charLimitIndicator:410328:
 
 public void timerSliderChange(GCustomSlider source, GEvent event) { //_CODE_:timerSlider:376555:
-  timerVar = timerSlider.getValueI() + 10;
+  timerVar = timerSlider.getValueI() + 1;
   currentTime = millis();
-  timerValue.setText("Timer set to: " + str(timerVar - 10) + " seconds");
+  timerValue.setText("Timer set to: " + str(timerVar - 1) + " seconds");
 } //_CODE_:timerSlider:376555:
 
 public void timerValueChange(GTextField source, GEvent event) { //_CODE_:timerValue:710029:
@@ -173,7 +175,7 @@ public void createGUI(){
   charLimitIndicator.setOpaque(true);
   charLimitIndicator.addEventHandler(this, "charLimitChange");
   timerSlider = new GCustomSlider(window1, 310, 100, 270, 40, "grey_blue");
-  timerSlider.setLimits(1, 1, 60);
+  timerSlider.setLimits(30, 1, 60);
   timerSlider.setNbrTicks(6);
   timerSlider.setStickToTicks(true);
   timerSlider.setEasing(3.0);

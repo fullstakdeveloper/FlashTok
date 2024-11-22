@@ -29,6 +29,7 @@ void setup() {
   f = createFont("Arial", 16, true);
   cardHistory = new ArrayList<Flashcard>();
   cardProbabilityList = new ArrayList<Flashcard>();
+  timerSlider.setValue(36);
   
   size(600, 600);
 
