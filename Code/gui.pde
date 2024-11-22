@@ -7,7 +7,7 @@
  * use lines between the matching comment tags. e.g.
 
  void myBtnEvents(GButton button) { //_CODE_:button1:12356:
-  // It is safe to enter your event code here  
+     // It is safe to enter your event code here  
  } //_CODE_:button1:12356:
  
  * Do not rename this tab!
@@ -15,16 +15,12 @@
  */
 
 public void showAnswerClick(GButton source, GEvent event) { //_CODE_:showAnswer:736547:
-  //println("showAnswer - GButton >> GEvent." + event + " @ " + millis());
-  
-  //locates the chard using the card index and then show the answer.
   if (cardHistory.get(cardIndex).showAns == true) {cardHistory.get(cardIndex).showAns = false;}
   else {cardHistory.get(cardIndex).showAns = true;}
-
-  
 } //_CODE_:showAnswer:736547:
 
 public void nextClick(GButton source, GEvent event) { //_CODE_:next:681460:
+  if (scrollBoolean == false & cardHistory.size() > 0){
   if (scrollBoolean == false & cardHistory.size() > 0){
       cardIndex += 1;
       
@@ -72,29 +68,29 @@ public void easyButtonClick(GButton source, GEvent event) { //_CODE_:easyButton:
   cardHistory.get(cardIndex).hardEasy = true;
 } 
 
-public void hardButtonClick(GButton source, GEvent event) { 
+public void hardButtonClick(GButton source, GEvent event) { //_CODE_:hardButton:837404:
   if (cardHistory.get(cardIndex).hardEasy != true) {
-  cardProbabilityList.add(cardHistory.get(cardIndex));
+    cardProbabilityList.add(cardHistory.get(cardIndex));
   }
   cardHistory.get(cardIndex).hardEasy = true;
 
   println(cardProbabilityList);
-} 
+} //_CODE_:hardButton:837404:
 
 synchronized public void win_draw1(PApplet appc, GWinData data) { //_CODE_:window1:965333:
   appc.background(230);
 } //_CODE_:window1:965333:
 
 public void questionFieldChange(GTextArea source, GEvent event) { //_CODE_:questionField:268747:
-
+  //println("questionField - GTextArea >> GEvent." + event + " @ " + millis());
 } //_CODE_:questionField:268747:
 
 public void answerFieldChange(GTextArea source, GEvent event) { //_CODE_:answerField:296875:
+  //println("answerField - GTextArea >> GEvent." + event + " @ " + millis());
 } //_CODE_:answerField:296875:
 
 public void submitClick(GButton source, GEvent event) { //_CODE_:submit:405464:
-  //println("submit - GButton >> GEvent." + event + " @ " + millis());
-   if (questionField.getText().length() > questionCharLimit) {
+ if (questionField.getText().length() > questionCharLimit) {
      charLimitIndicator.setText("Question Character Limit of " + questionCharLimit + " passed");
      return;
    }
@@ -117,6 +113,7 @@ public void submitClick(GButton source, GEvent event) { //_CODE_:submit:405464:
     Flashcard newFlashcard = new Flashcard(50, 650, questionField.getText(), answerField.getText());
 
     // cardHistory.add(newFlashcard);
+    // cardHistory.add(newFlashcard);
 
     //dont touch this code please
     if (cardProbabilityList.contains(newFlashcard) != true) {cardProbabilityList.add(newFlashcard);}
@@ -132,6 +129,7 @@ public void submitClick(GButton source, GEvent event) { //_CODE_:submit:405464:
 } //_CODE_:submit:405464:
 
 public void charLimitChange(GTextField source, GEvent event) { //_CODE_:charLimitIndicator:410328:
+  //println("charLimitIndicator - GTextField >> GEvent." + event + " @ " + millis());
 } //_CODE_:charLimitIndicator:410328:
 
 public void timerSliderChange(GCustomSlider source, GEvent event) { //_CODE_:timerSlider:376555:
@@ -141,11 +139,24 @@ public void timerSliderChange(GCustomSlider source, GEvent event) { //_CODE_:tim
 } //_CODE_:timerSlider:376555:
 
 public void timerValueChange(GTextField source, GEvent event) { //_CODE_:timerValue:710029:
+  //println("timerValue - GTextField >> GEvent." + event + " @ " + millis());
 } //_CODE_:timerValue:710029:
 
 public void displayTimeChange(GTextField source, GEvent event) { //_CODE_:displayTime:599060:
-
+  //println("displayTime - GTextField >> GEvent." + event + " @ " + millis());
 } //_CODE_:displayTime:599060:
+
+public void timerToggleClick(GCheckbox source, GEvent event) { //_CODE_:timerToggle:833309:
+  if (timerToggle.isSelected()){
+    timeToggle = true;
+  }
+  
+  else{
+    timeToggle = false;
+  }
+  
+  currentTime = millis();
+} //_CODE_:timerToggle:833309:
 
 
 
@@ -212,6 +223,12 @@ public void createGUI(){
   displayTime = new GTextField(window1, 310, 180, 120, 30, G4P.SCROLLBARS_NONE);
   displayTime.setOpaque(true);
   displayTime.addEventHandler(this, "displayTimeChange");
+  timerToggle = new GCheckbox(window1, 460, 140, 120, 20);
+  timerToggle.setIconAlign(GAlign.LEFT, GAlign.MIDDLE);
+  timerToggle.setText("Timer Toggle");
+  timerToggle.setOpaque(false);
+  timerToggle.addEventHandler(this, "timerToggleClick");
+  timerToggle.setSelected(true);
   window1.loop();
 }
 
@@ -232,3 +249,4 @@ GTextField charLimitIndicator;
 GCustomSlider timerSlider; 
 GTextField timerValue; 
 GTextField displayTime; 
+GCheckbox timerToggle; 

@@ -8,6 +8,7 @@ float timeLeft;
 int currentTime;
 int secondTime;
 boolean timeBool = false;
+boolean timeToggle = true;
 
 // character limit for question field and answer field
 int questionCharLimit = 300;
@@ -56,7 +57,7 @@ void draw() {
 
   //note that the draw runs at 30 times per second
   
-  if (timeBool){
+  if (timeBool && timeToggle){
     secondTime = millis();
     
     timeLeft = timerVar - (secondTime - currentTime)/100;
