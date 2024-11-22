@@ -3,6 +3,12 @@ import g4p_controls.*;
 ArrayList<Flashcard> cardHistory;
 ArrayList<Flashcard> cardProbabilityList;
 
+int timerVar;//timing variables
+float timeLeft;
+int currentTime;
+int secondTime;
+boolean timeBool = false;
+
 // character limit for question field and answer field
 int questionCharLimit = 300;
 int answerCharLimit = 300;
@@ -23,6 +29,7 @@ void setup() {
   f = createFont("Arial", 16, true);
   cardHistory = new ArrayList<Flashcard>();
   cardProbabilityList = new ArrayList<Flashcard>();
+  timerSlider.setValue(36);
   
   size(600, 600);
 
@@ -48,6 +55,34 @@ void draw() {
   if (scrollBoolean == true) {frames += 1;}
 
   //note that the draw runs at 30 times per second
+  
+  if (timeBool){
+    secondTime = millis();
+    
+    timeLeft = timerVar - (secondTime - currentTime)/100;
+    displayTime.setText("Time left: " + str(timeLeft));
+    
+    if (timeLeft == 0){
+      timeBool = false;
+      
+      if (scrollBoolean == false & cardHistory.size() > 1){
+        cardIndex += 1;
+      
+        timeBool = true;
+        
+        currentTime = millis();
+
+      if (float(cardIndex) > (cardHistory.size()-1)) {
+        Flashcard value = cardProbabilityList.get(int(random(0, cardProbabilityList.size())));
+      
+        cardHistory.add(new Flashcard(50, 650, value.question, value.answer));
+      
+    }
+      scrollBoolean = true;
+  }
+    }
+
+  }
 }
 
 

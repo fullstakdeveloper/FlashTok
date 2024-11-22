@@ -27,11 +27,16 @@ public void showAnswerClick(GButton source, GEvent event) { //_CODE_:showAnswer:
 public void nextClick(GButton source, GEvent event) { //_CODE_:next:681460:
   if (scrollBoolean == false & cardHistory.size() > 1){
       cardIndex += 1;
+      
+      timeBool = true;
+      
+      currentTime = millis();
 
     if (float(cardIndex) > (cardHistory.size()-1)) {
       Flashcard value = cardProbabilityList.get(int(random(0, cardProbabilityList.size())));
       
       cardHistory.add(new Flashcard(50, 650, value.question, value.answer));
+      
     }
     scrollBoolean = true;
   }
@@ -45,11 +50,15 @@ public void previousClick(GButton source, GEvent event) { //_CODE_:previous:4225
     scrollBoolean = true; scroll_speed = -20;cardIndex -=1;
   }
 
+  currentTime = millis();
+
   cardHistory.get(cardIndex+1).showAns = false;
   cardHistory.get(cardIndex+1).hardEasy = false;
 } //_CODE_:previous:422535:
 
 public void easyButtonClick(GButton source, GEvent event) { //_CODE_:easyButton:287005:
+  //println("easyButton - GButton >> GEvent." + event + " @ " + millis());
+ //_CODE_:easyButton:287005:
 if (cardHistory.get(cardIndex).hardEasy != true){
   int values = 0;
   for (int i = 0; i < cardProbabilityList.size(); i++) {
@@ -62,6 +71,7 @@ if (cardHistory.get(cardIndex).hardEasy != true){
 
 cardHistory.get(cardIndex).hardEasy = true;
 } 
+
 
 public void hardButtonClick(GButton source, GEvent event) { 
   if (cardHistory.get(cardIndex).hardEasy != true) {
@@ -81,7 +91,6 @@ public void questionFieldChange(GTextArea source, GEvent event) { //_CODE_:quest
 } //_CODE_:questionField:268747:
 
 public void answerFieldChange(GTextArea source, GEvent event) { //_CODE_:answerField:296875:
-  //println("answerField - GTextArea >> GEvent." + event + " @ " + millis());
 } //_CODE_:answerField:296875:
 
 public void submitClick(GButton source, GEvent event) { //_CODE_:submit:405464:
@@ -100,6 +109,8 @@ public void submitClick(GButton source, GEvent event) { //_CODE_:submit:405464:
     Flashcard newFlashcard = new Flashcard(50, 50, questionField.getText(), answerField.getText());
     cardHistory.add(newFlashcard);
     cardProbabilityList.add(newFlashcard);
+    timeBool = true;
+    currentTime = millis();
   
   }
 
@@ -122,12 +133,20 @@ public void submitClick(GButton source, GEvent event) { //_CODE_:submit:405464:
 } //_CODE_:submit:405464:
 
 public void charLimitChange(GTextField source, GEvent event) { //_CODE_:charLimitIndicator:410328:
-  //println("textfield1 - GTextField >> GEvent." + event + " @ " + millis());
 } //_CODE_:charLimitIndicator:410328:
 
 public void timerSliderChange(GCustomSlider source, GEvent event) { //_CODE_:timerSlider:376555:
-  println("timerSlider - GCustomSlider >> GEvent." + event + " @ " + millis());
+  timerVar = timerSlider.getValueI() + 1;
+  currentTime = millis();
+  timerValue.setText("Timer set to: " + str(timerVar - 1) + " seconds");
 } //_CODE_:timerSlider:376555:
+
+public void timerValueChange(GTextField source, GEvent event) { //_CODE_:timerValue:710029:
+} //_CODE_:timerValue:710029:
+
+public void displayTimeChange(GTextField source, GEvent event) { //_CODE_:displayTime:599060:
+
+} //_CODE_:displayTime:599060:
 
 
 
@@ -180,13 +199,20 @@ public void createGUI(){
   charLimitIndicator.setLocalColorScheme(GCScheme.CYAN_SCHEME);
   charLimitIndicator.setOpaque(true);
   charLimitIndicator.addEventHandler(this, "charLimitChange");
-  timerSlider = new GCustomSlider(window1, 310, 80, 270, 40, "grey_blue");
-  timerSlider.setLimits(10, 0, 60);
+  timerSlider = new GCustomSlider(window1, 310, 100, 270, 40, "grey_blue");
+  timerSlider.setLimits(30, 1, 60);
   timerSlider.setNbrTicks(6);
   timerSlider.setStickToTicks(true);
+  timerSlider.setEasing(3.0);
   timerSlider.setNumberFormat(G4P.INTEGER, 0);
   timerSlider.setOpaque(false);
   timerSlider.addEventHandler(this, "timerSliderChange");
+  timerValue = new GTextField(window1, 310, 140, 140, 20, G4P.SCROLLBARS_NONE);
+  timerValue.setOpaque(true);
+  timerValue.addEventHandler(this, "timerValueChange");
+  displayTime = new GTextField(window1, 310, 180, 120, 30, G4P.SCROLLBARS_NONE);
+  displayTime.setOpaque(true);
+  displayTime.addEventHandler(this, "displayTimeChange");
   window1.loop();
 }
 
@@ -205,3 +231,5 @@ GLabel label2;
 GButton submit; 
 GTextField charLimitIndicator; 
 GCustomSlider timerSlider; 
+GTextField timerValue; 
+GTextField displayTime; 
