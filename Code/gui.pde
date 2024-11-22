@@ -59,19 +59,18 @@ public void previousClick(GButton source, GEvent event) { //_CODE_:previous:4225
 public void easyButtonClick(GButton source, GEvent event) { //_CODE_:easyButton:287005:
   //println("easyButton - GButton >> GEvent." + event + " @ " + millis());
  //_CODE_:easyButton:287005:
-if (cardHistory.get(cardIndex).hardEasy != true){
-  int values = 0;
-  for (int i = 0; i < cardProbabilityList.size(); i++) {
-      if (cardHistory.get(cardIndex) == cardProbabilityList.get(i)) {
-        if (values > 0) {cardProbabilityList.remove(i); break;}
-          values += 1;
+  if (cardHistory.get(cardIndex).hardEasy != true){
+    int values = 0;
+    for (int i = 0; i < cardProbabilityList.size(); i++) {
+        if (cardHistory.get(cardIndex) == cardProbabilityList.get(i)) {
+          if (values > 0) {cardProbabilityList.remove(i); break;}
+            values += 1;
+      }
     }
   }
-}
 
-cardHistory.get(cardIndex).hardEasy = true;
+  cardHistory.get(cardIndex).hardEasy = true;
 } 
-
 
 public void hardButtonClick(GButton source, GEvent event) { 
   if (cardHistory.get(cardIndex).hardEasy != true) {
