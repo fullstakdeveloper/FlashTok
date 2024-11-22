@@ -60,6 +60,7 @@ public void easyButtonClick(GButton source, GEvent event) { //_CODE_:easyButton:
             values += 1;
       }
     }
+  }
 } //_CODE_:easyButton:287005:
 
 public void hardButtonClick(GButton source, GEvent event) { //_CODE_:hardButton:837404:
@@ -76,32 +77,80 @@ synchronized public void win_draw1(PApplet appc, GWinData data) { //_CODE_:windo
 } //_CODE_:window1:965333:
 
 public void questionFieldChange(GTextArea source, GEvent event) { //_CODE_:questionField:268747:
-  println("questionField - GTextArea >> GEvent." + event + " @ " + millis());
+  //println("questionField - GTextArea >> GEvent." + event + " @ " + millis());
 } //_CODE_:questionField:268747:
 
 public void answerFieldChange(GTextArea source, GEvent event) { //_CODE_:answerField:296875:
-  println("answerField - GTextArea >> GEvent." + event + " @ " + millis());
+  //println("answerField - GTextArea >> GEvent." + event + " @ " + millis());
 } //_CODE_:answerField:296875:
 
 public void submitClick(GButton source, GEvent event) { //_CODE_:submit:405464:
-  println("submit - GButton >> GEvent." + event + " @ " + millis());
+ if (questionField.getText().length() > questionCharLimit) {
+     charLimitIndicator.setText("Question Character Limit of " + questionCharLimit + " passed");
+     return;
+   }
+   else if (answerField.getText().length() > answerCharLimit) {
+     charLimitIndicator.setText("Answer Character Limit of " + answerCharLimit + " passed");
+     return;
+   }
+
+
+  if (cardHistory.size() < 1) {
+    Flashcard newFlashcard = new Flashcard(50, 50, questionField.getText(), answerField.getText());
+    cardHistory.add(newFlashcard);
+    cardProbabilityList.add(newFlashcard);
+    timeBool = true;
+    currentTime = millis();
+  
+  }
+
+  else {
+    Flashcard newFlashcard = new Flashcard(50, 650, questionField.getText(), answerField.getText());
+
+    // cardHistory.add(newFlashcard);
+
+    //dont touch this code please
+    if (cardProbabilityList.contains(newFlashcard) != true) {cardProbabilityList.add(newFlashcard);}
+    
+    }
+
+  
+  answerField.setText("");
+  questionField.setText("");
+  
+  
+  
 } //_CODE_:submit:405464:
 
 public void charLimitChange(GTextField source, GEvent event) { //_CODE_:charLimitIndicator:410328:
-  println("charLimitIndicator - GTextField >> GEvent." + event + " @ " + millis());
+  //println("charLimitIndicator - GTextField >> GEvent." + event + " @ " + millis());
 } //_CODE_:charLimitIndicator:410328:
 
 public void timerSliderChange(GCustomSlider source, GEvent event) { //_CODE_:timerSlider:376555:
-  println("timerSlider - GCustomSlider >> GEvent." + event + " @ " + millis());
+  timerVar = timerSlider.getValueI() + 1;
+  currentTime = millis();
+  timerValue.setText("Timer set to: " + str(timerVar - 1) + " seconds");
 } //_CODE_:timerSlider:376555:
 
 public void timerValueChange(GTextField source, GEvent event) { //_CODE_:timerValue:710029:
-  println("timerValue - GTextField >> GEvent." + event + " @ " + millis());
+  //println("timerValue - GTextField >> GEvent." + event + " @ " + millis());
 } //_CODE_:timerValue:710029:
 
 public void displayTimeChange(GTextField source, GEvent event) { //_CODE_:displayTime:599060:
-  println("displayTime - GTextField >> GEvent." + event + " @ " + millis());
+  //println("displayTime - GTextField >> GEvent." + event + " @ " + millis());
 } //_CODE_:displayTime:599060:
+
+public void timerToggleClick(GCheckbox source, GEvent event) { //_CODE_:timerToggle:833309:
+  if (timerToggle.isSelected()){
+    timeToggle = true;
+  }
+  
+  else{
+    timeToggle = false;
+  }
+  
+  currentTime = millis();
+} //_CODE_:timerToggle:833309:
 
 
 
@@ -168,6 +217,12 @@ public void createGUI(){
   displayTime = new GTextField(window1, 310, 180, 120, 30, G4P.SCROLLBARS_NONE);
   displayTime.setOpaque(true);
   displayTime.addEventHandler(this, "displayTimeChange");
+  timerToggle = new GCheckbox(window1, 460, 140, 120, 20);
+  timerToggle.setIconAlign(GAlign.LEFT, GAlign.MIDDLE);
+  timerToggle.setText("Timer Toggle");
+  timerToggle.setOpaque(false);
+  timerToggle.addEventHandler(this, "timerToggleClick");
+  timerToggle.setSelected(true);
   window1.loop();
 }
 
@@ -188,3 +243,4 @@ GTextField charLimitIndicator;
 GCustomSlider timerSlider; 
 GTextField timerValue; 
 GTextField displayTime; 
+GCheckbox timerToggle; 
