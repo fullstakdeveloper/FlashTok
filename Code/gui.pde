@@ -14,7 +14,7 @@
  * =========================================================
  */
 
-public void showAnswerClick(GButton source, GEvent event) { //_CODE_:showAnswer:736547: //show answer
+public void showAnswerClick(GButton source, GEvent event) { //_CODE_:showAnswer:736547:  //show answer
   if (cardHistory.get(cardIndex).showAns == true) {cardHistory.get(cardIndex).showAns = false;} // if has been clicked before, hide answer
   else {cardHistory.get(cardIndex).showAns = true;} // if otherwise, show answer
 } //_CODE_:showAnswer:736547:
@@ -39,8 +39,8 @@ public void nextClick(GButton source, GEvent event) { //_CODE_:next:681460:
 
   cardHistory.get(cardIndex-1).showAns = false;
   cardHistory.get(cardIndex-1).hardEasy = false;
+  }
 } //_CODE_:next:681460:
-}
 
 public void previousClick(GButton source, GEvent event) { //_CODE_:previous:422535:
   if (scrollBoolean == false & cardIndex != 0) {
@@ -63,6 +63,7 @@ public void easyButtonClick(GButton source, GEvent event) { //_CODE_:easyButton:
       }
     }
   }
+  
 } //_CODE_:easyButton:287005:
 
 public void hardButtonClick(GButton source, GEvent event) { //_CODE_:hardButton:837404: //hard button
@@ -70,30 +71,34 @@ public void hardButtonClick(GButton source, GEvent event) { //_CODE_:hardButton:
     cardProbabilityList.add(cardHistory.get(cardIndex)); // card probability list adds one
   }
   cardHistory.get(cardIndex).hardEasy = true; //sets hard easy to true so it doesnt get clicked again
-
+  
 } //_CODE_:hardButton:837404:
+
+public void deleteCardChange(GButton source, GEvent event) { //_CODE_:deleteCard:362801: 
+  
+} //_CODE_:deleteCard:362801:
 
 synchronized public void win_draw1(PApplet appc, GWinData data) { //_CODE_:window1:965333:
   appc.background(230);
 } //_CODE_:window1:965333:
 
-public void questionFieldChange(GTextArea source, GEvent event) { //_CODE_:questionField:268747: //question field
+public void questionFieldChange(GTextArea source, GEvent event) { //_CODE_:questionField:268747:
   //println("questionField - GTextArea >> GEvent." + event + " @ " + millis());
 } //_CODE_:questionField:268747:
 
-public void answerFieldChange(GTextArea source, GEvent event) { //_CODE_:answerField:296875: //answer field
+public void answerFieldChange(GTextArea source, GEvent event) { //_CODE_:answerField:296875:
   //println("answerField - GTextArea >> GEvent." + event + " @ " + millis());
 } //_CODE_:answerField:296875:
 
 public void submitClick(GButton source, GEvent event) { //_CODE_:submit:405464: //submit button
- if (questionField.getText().length() > questionCharLimit) { //if over char limit for both question display error message
-     charLimitIndicator.setText("Question Character Limit of " + questionCharLimit + " passed");
-     return;
-   }
-   else if (answerField.getText().length() > answerCharLimit) { //same for answer
-     charLimitIndicator.setText("Answer Character Limit of " + answerCharLimit + " passed");
-     return;
-   }
+  if (questionField.getText().length() > questionCharLimit) { //if over char limit for both question display error message
+    charLimitIndicator.setText("Question Character Limit of " + questionCharLimit + " passed");
+    return;
+  }
+  else if (answerField.getText().length() > answerCharLimit) { //same for answer
+    charLimitIndicator.setText("Answer Character Limit of " + answerCharLimit + " passed");
+    return;
+  }
 
 
   if (cardHistory.size() < 1) { //if no cards
@@ -117,12 +122,10 @@ public void submitClick(GButton source, GEvent event) { //_CODE_:submit:405464: 
   answerField.setText(""); //set fields to nothing
   questionField.setText("");
   charLimitIndicator.setText("");
-  
-  
-  
+
 } //_CODE_:submit:405464:
 
-public void charLimitChange(GTextField source, GEvent event) { //_CODE_:charLimitIndicator:410328: //char limit indicator text box
+public void charLimitChange(GTextField source, GEvent event) { //_CODE_:charLimitIndicator:410328: //char limit text box
   //println("charLimitIndicator - GTextField >> GEvent." + event + " @ " + millis());
 } //_CODE_:charLimitIndicator:410328:
 
@@ -130,17 +133,18 @@ public void timerSliderChange(GCustomSlider source, GEvent event) { //_CODE_:tim
   timerVar = timerSlider.getValueI() + 1; //adds one to the value of timer slider since it takes one second to scroll down
   currentTime = millis(); //restarts timer
   timerValue.setText("Timer set to: " + str(timerVar - 1) + " seconds"); //set timer value text thing
+  
 } //_CODE_:timerSlider:376555:
 
-public void timerValueChange(GTextField source, GEvent event) { //_CODE_:timerValue:710029: //tells how much time is set
+public void timerValueChange(GTextField source, GEvent event) { //_CODE_:timerValue:710029:
   //println("timerValue - GTextField >> GEvent." + event + " @ " + millis());
 } //_CODE_:timerValue:710029:
 
-public void displayTimeChange(GTextField source, GEvent event) { //_CODE_:displayTime:599060; //display time 
+public void displayTimeChange(GTextField source, GEvent event) { //_CODE_:displayTime:599060:
   //println("displayTime - GTextField >> GEvent." + event + " @ " + millis());
 } //_CODE_:displayTime:599060:
 
-public void timerToggleClick(GCheckbox source, GEvent event) { //_CODE_:timerToggle:833309: //timer toggle
+public void timerToggleClick(GCheckbox source, GEvent event) { //_CODE_:timerToggle:833309:
   if (timerToggle.isSelected()){ //if selected, start timer
     timeToggle = true;
   }
@@ -151,6 +155,22 @@ public void timerToggleClick(GCheckbox source, GEvent event) { //_CODE_:timerTog
   
   currentTime = millis(); //start timer
 } //_CODE_:timerToggle:833309:
+
+public void blueSliderChange(GCustomSlider source, GEvent event) { //_CODE_:blueSlider:500756:
+  //println("blueSlider - GCustomSlider >> GEvent." + event + " @ " + millis());
+} //_CODE_:blueSlider:500756:
+
+public void greenSliderChange(GCustomSlider source, GEvent event) { //_CODE_:greenSlider:521711:
+  //println("greenSlider - GCustomSlider >> GEvent." + event + " @ " + millis());
+} //_CODE_:greenSlider:521711:
+
+public void redSliderChange(GCustomSlider source, GEvent event) { //_CODE_:redSlider:844552:
+  //println("redSlider - GCustomSlider >> GEvent." + event + " @ " + millis());
+} //_CODE_:redSlider:844552:
+
+public void rgbIndicatorChange(GTextField source, GEvent event) { //_CODE_:rgbIndicator:652868:
+  //println("rgbIndicator - GTextField >> GEvent." + event + " @ " + millis());
+} //_CODE_:rgbIndicator:652868:
 
 
 
@@ -178,6 +198,10 @@ public void createGUI(){
   hardButton.setText("Hard");
   hardButton.setLocalColorScheme(GCScheme.RED_SCHEME);
   hardButton.addEventHandler(this, "hardButtonClick");
+  deleteCard = new GButton(this, 240, 560, 110, 30);
+  deleteCard.setText("Delete Card");
+  deleteCard.setLocalColorScheme(GCScheme.PURPLE_SCHEME);
+  deleteCard.addEventHandler(this, "deleteCardChange");
   window1 = GWindow.getWindow(this, "Window title", 0, 0, 600, 400, JAVA2D);
   window1.noLoop();
   window1.setActionOnClose(G4P.KEEP_OPEN);
@@ -223,6 +247,25 @@ public void createGUI(){
   timerToggle.setOpaque(false);
   timerToggle.addEventHandler(this, "timerToggleClick");
   timerToggle.setSelected(true);
+  blueSlider = new GCustomSlider(window1, 310, 330, 270, 40, "grey_blue");
+  blueSlider.setLimits(0, 0, 255);
+  blueSlider.setNumberFormat(G4P.INTEGER, 0);
+  blueSlider.setOpaque(false);
+  blueSlider.addEventHandler(this, "blueSliderChange");
+  greenSlider = new GCustomSlider(window1, 310, 280, 270, 40, "grey_blue");
+  greenSlider.setLimits(0, 0, 255);
+  greenSlider.setEasing(2.0);
+  greenSlider.setNumberFormat(G4P.INTEGER, 0);
+  greenSlider.setOpaque(false);
+  greenSlider.addEventHandler(this, "greenSliderChange");
+  redSlider = new GCustomSlider(window1, 310, 230, 270, 40, "grey_blue");
+  redSlider.setLimits(0, 0, 255);
+  redSlider.setNumberFormat(G4P.INTEGER, 0);
+  redSlider.setOpaque(false);
+  redSlider.addEventHandler(this, "redSliderChange");
+  rgbIndicator = new GTextField(window1, 460, 180, 120, 30, G4P.SCROLLBARS_NONE);
+  rgbIndicator.setOpaque(true);
+  rgbIndicator.addEventHandler(this, "rgbIndicatorChange");
   window1.loop();
 }
 
@@ -233,6 +276,7 @@ GButton next;
 GButton previous; 
 GButton easyButton; 
 GButton hardButton; 
+GButton deleteCard; 
 GWindow window1;
 GTextArea questionField; 
 GTextArea answerField; 
@@ -244,3 +288,7 @@ GCustomSlider timerSlider;
 GTextField timerValue; 
 GTextField displayTime; 
 GCheckbox timerToggle; 
+GCustomSlider blueSlider; 
+GCustomSlider greenSlider; 
+GCustomSlider redSlider; 
+GTextField rgbIndicator; 
