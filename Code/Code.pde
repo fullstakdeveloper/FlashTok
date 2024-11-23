@@ -11,8 +11,6 @@ float timeLeft;
 int currentTime;
 int secondTime;
 
-//what the heck
-
 // Toggles to start/stop and enable/disable the timer
 boolean timeBool = false;
 boolean timeToggle = true;
