@@ -91,12 +91,12 @@ void draw() {
     secondTime = millis(); // Get the current system time
     timeLeft = timerVar - (secondTime - currentTime) / 1000; // Calculate time left
     
-    if (timeLeft - 6 <= 0) {
+    if (timeLeft - answerDelay - scrollDelay <= 0) {
       displayTime.setText("Time left: 0");
     }
     
     else {
-      displayTime.setText("Time left: " + str(timeLeft - answerDelay - scrollDelay)); // Update the timer text
+      displayTime.setText("Time left: " + str(timeLeft - scrollDelay - answerDelay)); // Update the timer text
     }
     
 

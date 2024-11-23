@@ -138,7 +138,7 @@ public void submitClick(GButton source, GEvent event) { //_CODE_:submit:405464:
 
 //displays the timer
 public void timerSliderChange(GCustomSlider source, GEvent event) { //_CODE_:timerSlider:376555:
-  timerVar = timerSlider.getValueI() + 1; //adds one to the value of timer slider since it takes one second to scroll down
+  timerVar = timerSlider.getValueI() + answerDelay + scrollDelay; //adds one to the value of timer slider since it takes one second to scroll down
   currentTime = millis(); //restarts timer
   timerValue.setText("Timer set to: " + str(timerVar - 1) + " seconds"); 
 } //_CODE_:timerSlider:376555:
