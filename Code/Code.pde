@@ -18,8 +18,8 @@ boolean timeBool = false;
 boolean timeToggle = true;
 
 // Maximum character limits for text in flashcard input boxes
-int questionCharLimit = 300;
-int answerCharLimit = 300;
+int questionCharLimit = 200;
+int answerCharLimit = 200;
 
 // Variables for scroll speed and animation frames
 int scroll_speed = 20;
@@ -50,6 +50,7 @@ void setup() {
 
   // Set initial slider value for the timer
   timerSlider.setValue(36);
+  
 
   // Set the application window size
   size(600, 600);
@@ -57,6 +58,8 @@ void setup() {
 
 void draw() {
   // Handle scrolling of flashcards in the history
+  rgbIndicator.setText("R " + str(redSlider.getValueI()) + " G " + str(greenSlider.getValueI()) +  " B " + str(blueSlider.getValueI()));
+
   if (frames <= 30 && frames != 0) {
     for (Flashcard card : cardHistory) {
       card.y -= scroll_speed; // Move flashcards up
