@@ -15,8 +15,7 @@
  */
 
 public void showAnswerClick(GButton source, GEvent event) { //_CODE_:showAnswer:736547:  //show answer
-  if (cardHistory.get(cardIndex).showAns == true) {cardHistory.get(cardIndex).showAns = false;} // if has been clicked before, hide answer
-  else {cardHistory.get(cardIndex).showAns = true;} // if otherwise, show answer
+  cardHistory.get(cardIndex).showAns = true; //show answer
 } //_CODE_:showAnswer:736547:
 
 public void nextClick(GButton source, GEvent event) { //_CODE_:next:681460:
@@ -82,7 +81,6 @@ public void deleteCardChange(GButton source, GEvent event) { //_CODE_:deleteCard
       println("true");
       cardProbabilityList.remove(i);
     }
-    println(cardProbabilityList);
   }
 } //_CODE_:deleteCard:362801:
 
@@ -138,9 +136,9 @@ public void charLimitChange(GTextField source, GEvent event) { //_CODE_:charLimi
 } //_CODE_:charLimitIndicator:410328:
 
 public void timerSliderChange(GCustomSlider source, GEvent event) { //_CODE_:timerSlider:376555: //timer slider
-  timerVar = timerSlider.getValueI() + 1; //adds one to the value of timer slider since it takes one second to scroll down
+  timerVar = timerSlider.getValueI() + answerDelay + scrollDelay; //adds one to the value of timer slider since it takes one second to scroll down
   currentTime = millis(); //restarts timer
-  timerValue.setText("Timer set to: " + str(timerVar - 1) + " seconds"); //set timer value text thing
+  timerValue.setText("Timer set to: " + str(timerVar - answerDelay - scrollDelay) + " seconds"); //set timer value text thing
   
 } //_CODE_:timerSlider:376555:
 

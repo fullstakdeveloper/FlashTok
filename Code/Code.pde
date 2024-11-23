@@ -10,6 +10,8 @@ int timerVar;
 float timeLeft;
 int currentTime;
 int secondTime;
+int answerDelay = 5;
+int scrollDelay = 1;
 
 // Toggles to start/stop and enable/disable the timer
 boolean timeBool = false;
@@ -85,12 +87,24 @@ void draw() {
   if (timeBool && timeToggle) {
     secondTime = millis(); // Get the current system time
     timeLeft = timerVar - (secondTime - currentTime) / 1000; // Calculate time left
-    displayTime.setText("Time left: " + str(timeLeft)); // Update the timer text
+    
+    if (timeLeft - 6 <= 0) {
+      displayTime.setText("Time left: 0");
+    }
+    
+    else {
+      displayTime.setText("Time left: " + str(timeLeft - answerDelay - scrollDelay)); // Update the timer text
+    }
+    
+    println(timeLeft);
+    if (timeLeft == answerDelay) {
+        cardHistory.get(cardIndex).showAns = true;
+    }
 
     // Handle timer expiration
+    
     if (timeLeft == 0) {
-      timeBool = false; // Stop the timer
-
+      timeBool = false;   // Stop the timer
       // Add a new flashcard if scrolling is inactive and history is not empty
       if (!scrollBoolean && !cardHistory.isEmpty()) {
         cardIndex++;
