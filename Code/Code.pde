@@ -1,7 +1,7 @@
 // Import the G4P GUI library
 import g4p_controls.*;
 
-// Lists to manage flashcard history and probability
+// Lists to manage flashcard history and probability 
 ArrayList<Flashcard> cardHistory;
 ArrayList<Flashcard> cardProbabilityList;
 
@@ -10,6 +10,8 @@ int timerVar;
 float timeLeft;
 int currentTime;
 int secondTime;
+
+//what the heck
 
 // Toggles to start/stop and enable/disable the timer
 boolean timeBool = false;
