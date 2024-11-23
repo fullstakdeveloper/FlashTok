@@ -99,7 +99,7 @@ void draw() {
       displayTime.setText("Time left: " + str(timeLeft - answerDelay - scrollDelay)); // Update the timer text
     }
     
-    println(timeLeft);
+
     if (timeLeft == answerDelay) {
         cardHistory.get(cardIndex).showAns = true;
     }

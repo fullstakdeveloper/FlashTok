@@ -14,14 +14,15 @@
  * =========================================================
  */
 
+//toggles the show answer
 public void showAnswerClick(GButton source, GEvent event) { //_CODE_:showAnswer:736547:
   if (cardHistory.get(cardIndex).showAns == true) {cardHistory.get(cardIndex).showAns = false;} // if has been clicked before, hide answer
   else {cardHistory.get(cardIndex).showAns = true;}
 } //_CODE_:showAnswer:736547:
 
+//generates a new flash card when the user clicks next. 
 public void nextClick(GButton source, GEvent event) { //_CODE_:next:681460:
-  if (scrollBoolean == false & cardHistory.size() > 0){
-  if (scrollBoolean == false & cardHistory.size() > 0){
+  if (scrollBoolean == false && cardProbabilityList.size() > 0){
       cardIndex += 1;
       
       timeBool = true;
@@ -33,15 +34,16 @@ public void nextClick(GButton source, GEvent event) { //_CODE_:next:681460:
       
       cardHistory.add(new Flashcard(50, 650, value.question, value.answer));
       
-    }
     scrollBoolean = true;
   }
 
+  //reserts the flashcard variables for the showAns and the hardEasy selection boolean
   cardHistory.get(cardIndex-1).showAns = false;
   cardHistory.get(cardIndex-1).hardEasy = false;
   }
 } //_CODE_:next:681460:
 
+//this for the history for the flashcard to go to previous cards
 public void previousClick(GButton source, GEvent event) { //_CODE_:previous:422535:
   if (scrollBoolean == false & cardIndex != 0) {
     scrollBoolean = true; scroll_speed = -20;cardIndex -=1;
@@ -53,6 +55,7 @@ public void previousClick(GButton source, GEvent event) { //_CODE_:previous:4225
   cardHistory.get(cardIndex+1).hardEasy = false;
 } //_CODE_:previous:422535:
 
+//just a button click check for increasing and decreasing probabilty of an flashcard
 public void easyButtonClick(GButton source, GEvent event) { //_CODE_:easyButton:287005:
   if (cardHistory.get(cardIndex).hardEasy != true){ // if hard/easy hasnt been clicked before, 
     int values = 0; //set values to 0 so we can make sure it only removes one
@@ -65,6 +68,7 @@ public void easyButtonClick(GButton source, GEvent event) { //_CODE_:easyButton:
   }
 } //_CODE_:easyButton:287005:
 
+//just a button click check for increasing and decreasing probabilty of an flashcard
 public void hardButtonClick(GButton source, GEvent event) { //_CODE_:hardButton:837404:
   if (cardHistory.get(cardIndex).hardEasy != true) { //make sure it hard/easy hasnt been clicked before
     cardProbabilityList.add(cardHistory.get(cardIndex)); // card probability list adds one
@@ -72,15 +76,14 @@ public void hardButtonClick(GButton source, GEvent event) { //_CODE_:hardButton:
   cardHistory.get(cardIndex).hardEasy = true; //sets hard easy to true so it doesnt get clicked again
 } //_CODE_:hardButton:837404:
 
+//deltes the card based on the button
 public void deleteCardChange(GButton source, GEvent event) { //_CODE_:deleteCard:362801:
   for (int i = 0; i < cardProbabilityList.size(); i++) {
     Flashcard value1 = cardHistory.get(cardIndex);
     Flashcard value2 = cardProbabilityList.get(i);
     if (value1.question == value2.question) {
-      println("true");
       cardProbabilityList.remove(i);
     }
-    println(cardProbabilityList);
   }
 } //_CODE_:deleteCard:362801:
 
@@ -88,14 +91,17 @@ synchronized public void win_draw1(PApplet appc, GWinData data) { //_CODE_:windo
   appc.background(230);
 } //_CODE_:window1:965333:
 
+//makes the text box
 public void questionFieldChange(GTextArea source, GEvent event) { //_CODE_:questionField:268747:
   //println("questionField - GTextArea >> GEvent." + event + " @ " + millis());
 } //_CODE_:questionField:268747:
 
+//makes the text box
 public void answerFieldChange(GTextArea source, GEvent event) { //_CODE_:answerField:296875:
   //println("answerField - GTextArea >> GEvent." + event + " @ " + millis());
 } //_CODE_:answerField:296875:
 
+//submits the form using the button, so we can use the values.
 public void submitClick(GButton source, GEvent event) { //_CODE_:submit:405464:
   if (questionField.getText().length() > questionCharLimit) { //if over char limit for both question display error message
     charLimitIndicator.setText("Question Character Limit of " + questionCharLimit + " passed");
@@ -130,12 +136,14 @@ public void submitClick(GButton source, GEvent event) { //_CODE_:submit:405464:
   charLimitIndicator.setText("");
 } //_CODE_:submit:405464:
 
+//displays the timer
 public void timerSliderChange(GCustomSlider source, GEvent event) { //_CODE_:timerSlider:376555:
   timerVar = timerSlider.getValueI() + 1; //adds one to the value of timer slider since it takes one second to scroll down
   currentTime = millis(); //restarts timer
   timerValue.setText("Timer set to: " + str(timerVar - 1) + " seconds"); 
 } //_CODE_:timerSlider:376555:
 
+//to enable time or to disable it, based on use preference
 public void timerToggleClick(GCheckbox source, GEvent event) { //_CODE_:timerToggle:833309:
   if (timerToggle.isSelected()){ //if selected, start timer
     timeToggle = true;
@@ -148,6 +156,8 @@ public void timerToggleClick(GCheckbox source, GEvent event) { //_CODE_:timerTog
   currentTime = millis(); //start timer
 } //_CODE_:timerToggle:833309:
 
+
+//for the color slider for the background
 public void blueSliderChange(GCustomSlider source, GEvent event) { //_CODE_:blueSlider:500756:
   blueRGB = blueSlider.getValueI();
 } //_CODE_:blueSlider:500756:
