@@ -20,8 +20,7 @@ public void showAnswerClick(GButton source, GEvent event) { //_CODE_:showAnswer:
 } //_CODE_:showAnswer:736547:
 
 public void nextClick(GButton source, GEvent event) { //_CODE_:next:681460:
-  if (scrollBoolean == false & cardHistory.size() > 0){
-  if (scrollBoolean == false & cardHistory.size() > 0){
+  if (scrollBoolean == false && cardProbabilityList.size() > 0){
       cardIndex += 1;
       
       timeBool = true;
@@ -33,7 +32,6 @@ public void nextClick(GButton source, GEvent event) { //_CODE_:next:681460:
       
       cardHistory.add(new Flashcard(50, 650, value.question, value.answer));
       
-    }
     scrollBoolean = true;
   }
 
@@ -77,10 +75,8 @@ public void deleteCardChange(GButton source, GEvent event) { //_CODE_:deleteCard
     Flashcard value1 = cardHistory.get(cardIndex);
     Flashcard value2 = cardProbabilityList.get(i);
     if (value1.question == value2.question) {
-      println("true");
       cardProbabilityList.remove(i);
     }
-    println(cardProbabilityList);
   }
 } //_CODE_:deleteCard:362801:
 
