@@ -57,7 +57,7 @@ public void easyButtonClick(GButton source, GEvent event) { //_CODE_:easyButton:
   if (cardHistory.get(cardIndex).hardEasy != true){ // if hard/easy hasnt been clicked before, 
     int values = 0; //set values to 0 so we can make sure it only removes one
     for (int i = 0; i < cardProbabilityList.size(); i++) {  //for every card
-        if (cardHistory.get(cardIndex) == cardProbabilityList.get(i)) { //check if its the card we are on
+        if (cardHistory.get(cardIndex).question == cardProbabilityList.get(i).question) { //check if its the card we are on
           if (values > 0) {cardProbabilityList.remove(i); break;} // removes one card
             values += 1; // makes it so it doesnt repeat
       }
@@ -75,7 +75,15 @@ public void hardButtonClick(GButton source, GEvent event) { //_CODE_:hardButton:
 } //_CODE_:hardButton:837404:
 
 public void deleteCardChange(GButton source, GEvent event) { //_CODE_:deleteCard:362801: 
-  
+  for (int i = 0; i < cardProbabilityList.size(); i++) {
+    Flashcard value1 = cardHistory.get(cardIndex);
+    Flashcard value2 = cardProbabilityList.get(i);
+    if (value1.question == value2.question) {
+      println("true");
+      cardProbabilityList.remove(i);
+    }
+    println(cardProbabilityList);
+  }
 } //_CODE_:deleteCard:362801:
 
 synchronized public void win_draw1(PApplet appc, GWinData data) { //_CODE_:window1:965333:
@@ -156,15 +164,21 @@ public void timerToggleClick(GCheckbox source, GEvent event) { //_CODE_:timerTog
   currentTime = millis(); //start timer
 } //_CODE_:timerToggle:833309:
 
-public void blueSliderChange(GCustomSlider source, GEvent event) { //_CODE_:blueSlider:500756:
+public void blueSliderChange(GCustomSlider source, GEvent event) { 
+  blueRGB = blueSlider.getValueI();
+  //_CODE_:blueSlider:500756:
   //println("blueSlider - GCustomSlider >> GEvent." + event + " @ " + millis());
 } //_CODE_:blueSlider:500756:
 
-public void greenSliderChange(GCustomSlider source, GEvent event) { //_CODE_:greenSlider:521711:
+public void greenSliderChange(GCustomSlider source, GEvent event) {
+  greenRGB = greenSlider.getValueI();
+   //_CODE_:greenSlider:521711:
   //println("greenSlider - GCustomSlider >> GEvent." + event + " @ " + millis());
 } //_CODE_:greenSlider:521711:
 
-public void redSliderChange(GCustomSlider source, GEvent event) { //_CODE_:redSlider:844552:
+public void redSliderChange(GCustomSlider source, GEvent event) {
+  redRGB = redSlider.getValueI();
+   //_CODE_:redSlider:844552:
   //println("redSlider - GCustomSlider >> GEvent." + event + " @ " + millis());
 } //_CODE_:redSlider:844552:
 

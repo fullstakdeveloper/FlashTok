@@ -1,7 +1,7 @@
 // Import the G4P GUI library
 import g4p_controls.*;
 
-// Lists to manage flashcard history and probability
+// Lists to manage flashcard history and probability 
 ArrayList<Flashcard> cardHistory;
 ArrayList<Flashcard> cardProbabilityList;
 
@@ -29,6 +29,11 @@ int cardIndex = 0;
 
 // Font used to display text
 PFont f;
+
+//RGB variables
+int redRGB;
+int greenRGB;
+int blueRGB;
 
 void setup() {
   // Set up GUI components
@@ -64,7 +69,7 @@ void draw() {
   }
 
   // Set background color to black
-  background(0);
+  background(redRGB, greenRGB, blueRGB);
 
   // Display all flashcards in the history
   for (Flashcard card : cardHistory) {
