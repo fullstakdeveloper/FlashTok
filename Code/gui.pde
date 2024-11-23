@@ -45,14 +45,16 @@ public void nextClick(GButton source, GEvent event) { //_CODE_:next:681460:
 
 //this for the history for the flashcard to go to previous cards
 public void previousClick(GButton source, GEvent event) { //_CODE_:previous:422535:
-  if (scrollBoolean == false & cardIndex != 0) {
+  if (scrollBoolean == false & cardIndex > 0) {
     scrollBoolean = true; scroll_speed = -20;cardIndex -=1;
   }
 
   currentTime = millis();
 
+  if (cardIndex > 0) {
   cardHistory.get(cardIndex+1).showAns = false;
   cardHistory.get(cardIndex+1).hardEasy = false;
+  }
 } //_CODE_:previous:422535:
 
 //just a button click check for increasing and decreasing probabilty of an flashcard
@@ -81,7 +83,7 @@ public void deleteCardChange(GButton source, GEvent event) { //_CODE_:deleteCard
   for (int i = 0; i < cardProbabilityList.size(); i++) {
     Flashcard value1 = cardHistory.get(cardIndex);
     Flashcard value2 = cardProbabilityList.get(i);
-    if (value1.question == value2.question) {
+    if (value1.question == value2.question && cardProbabilityList.size() > 0) {
       cardProbabilityList.remove(i);
     }
   }
@@ -109,6 +111,14 @@ public void submitClick(GButton source, GEvent event) { //_CODE_:submit:405464:
   }
   else if (answerField.getText().length() > answerCharLimit) { //same for answer
     charLimitIndicator.setText("Answer Character Limit of " + answerCharLimit + " passed");
+    return;
+  } 
+  else if (questionField.getText().length() == 1) {
+    charLimitIndicator.setText("Empty Question Field");
+    return;
+  }
+  else if (answerField.getText().length() == 1) {
+    charLimitIndicator.setText("Empty Answer Field");
     return;
   }
 
@@ -140,7 +150,7 @@ public void submitClick(GButton source, GEvent event) { //_CODE_:submit:405464:
 public void timerSliderChange(GCustomSlider source, GEvent event) { //_CODE_:timerSlider:376555:
   timerVar = timerSlider.getValueI() + answerDelay + scrollDelay; //adds one to the value of timer slider since it takes one second to scroll down
   currentTime = millis(); //restarts timer
-  timerValue.setText("Timer set to: " + str(timerVar - 1) + " seconds"); 
+  timerValue.setText("Timer set to: " + str(timerVar - answerDelay - scrollDelay) + " seconds"); 
 } //_CODE_:timerSlider:376555:
 
 //to enable time or to disable it, based on use preference

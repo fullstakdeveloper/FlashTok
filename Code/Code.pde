@@ -18,8 +18,9 @@ boolean timeBool = false;
 boolean timeToggle = true;
 
 // Maximum character limits for text in flashcard input boxes
-int questionCharLimit = 200;
-int answerCharLimit = 200;
+//the extra compensates for the g4p builder error. 
+int questionCharLimit = 201;
+int answerCharLimit = 201;
 
 // Variables for scroll speed and animation frames
 int scroll_speed = 20;
