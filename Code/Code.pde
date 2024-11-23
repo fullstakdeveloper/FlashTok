@@ -30,6 +30,11 @@ int cardIndex = 0;
 // Font used to display text
 PFont f;
 
+//RGB variables
+int redRGB;
+int greenRGB;
+int blueRGB;
+
 void setup() {
   // Set up GUI components
   createGUI();
@@ -64,7 +69,7 @@ void draw() {
   }
 
   // Set background color to black
-  background(0);
+  background(redRGB, greenRGB, blueRGB);
 
   // Display all flashcards in the history
   for (Flashcard card : cardHistory) {
