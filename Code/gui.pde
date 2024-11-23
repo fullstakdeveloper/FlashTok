@@ -21,6 +21,7 @@ public void showAnswerClick(GButton source, GEvent event) { //_CODE_:showAnswer:
 
 public void nextClick(GButton source, GEvent event) { //_CODE_:next:681460:
   if (scrollBoolean == false & cardHistory.size() > 0){
+  if (scrollBoolean == false & cardHistory.size() > 0){
       cardIndex += 1;
       
       timeBool = true;
@@ -39,6 +40,7 @@ public void nextClick(GButton source, GEvent event) { //_CODE_:next:681460:
   cardHistory.get(cardIndex-1).showAns = false;
   cardHistory.get(cardIndex-1).hardEasy = false;
 } //_CODE_:next:681460:
+}
 
 public void previousClick(GButton source, GEvent event) { //_CODE_:previous:422535:
   if (scrollBoolean == false & cardIndex != 0) {

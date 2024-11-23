@@ -1,27 +1,30 @@
 class Flashcard {
-    String question;
-    String answer;
-    int x, y;
-    Boolean showAns = false;
-    Boolean hardEasy = false;
+    String question; // The question displayed on the flashcard
+    String answer;   // The answer associated with the flashcard
+    int x, y;        // Coordinates for the position of the flashcard
+    Boolean showAns = false; // Flag to toggle displaying the answer
+    Boolean hardEasy = false; // Placeholder flag for difficulty (not used in logic)
 
-    Flashcard(int coorX, int coorY, String q, String a){
-        this.question  = q;
-        this.answer = a;
-        this.x = coorX;
-        this.y = coorY;
+    // Constructor to initialize a flashcard with position and text
+    Flashcard(int coorX, int coorY, String q, String a) {
+        this.question = q; // Set the question text
+        this.answer = a;   // Set the answer text
+        this.x = coorX;    // Set the x-coordinate
+        this.y = coorY;    // Set the y-coordinate
     }
 
-    void display(){
-        fill(255);
-        textFont(f, 16);
-        rect(this.x, this.y, this.x + 450, this.y + 450, 30);
+    // Method to display the flashcard
+    void display() {
+        fill(255); // Set fill color to white for the card background
+        textFont(f, 16); // Use the specified font for text
+        rect(this.x, this.y, this.x + 450, this.y + 450, 30); // Draw the flashcard with rounded corners
 
-        fill(0);
-        text(this.question, this.x + 100, this.y + 100, 300, 200);
+        fill(0); // Set text color to black
+        text(this.question, this.x + 100, this.y + 100, 300, 200); // Display the question text
 
-        //show answer functionality
-        if (showAns == true) {text(this.answer, this.x + 100, this.y + 250, 300, 200);}
-
+        // Display the answer text if the showAns flag is true
+        if (showAns) {
+            text(this.answer, this.x + 100, this.y + 250, 300, 200);
+        }
     }
 }
